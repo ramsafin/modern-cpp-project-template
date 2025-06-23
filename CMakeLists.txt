@@ -11,3 +11,11 @@ add_executable(${PROJECT_NAME}
 target_include_directories(${PROJECT_NAME}
   PRIVATE ${PROJECT_SOURCE_DIR}/include
 )
+
+# Tests
+option(ENABLE_TESTING "Build tests" OFF)
+
+if(ENABLE_TESTING)
+  enable_testing()
+  add_subdirectory(tests)
+endif()

@@ -3,6 +3,8 @@
     "xaver.clang-format",
     "ms-vscode.cmake-tools",
     "editorconfig.editorconfig",
+    "hbenl.vscode-test-explorer",
+    "matepek.vscode-catch2-test-adapter",
     "llvm-vs-code-extensions.vscode-clangd",
   ]
 }

@@ -2,7 +2,7 @@
   // CMake
   "cmake.buildDirectory": "${workspaceFolder}/build",
   "cmake.configureArgs": [
-    "-DCMAKE_C_COMPILER=/usr/bin/g++",
+    "-DCMAKE_C_COMPILER=/usr/bin/gcc",
     "-DCMAKE_CXX_COMPILER=/usr/bin/g++"
   ],
   "cmake.generator": "Ninja",

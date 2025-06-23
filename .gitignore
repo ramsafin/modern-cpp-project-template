@@ -1,0 +1,49 @@
+# === CMake build artifacts ===
+build/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+compile_commands.json
+
+# === Ninja build ===
+*.ninja
+.ninja_deps
+.ninja_log
+rules.ninja
+
+# === VS Code ===
+.vscode/*.code-workspace
+.vscode/ipch/
+.vscode/cmakesettings.json
+
+# === Editor backups ===
+*~
+*.swp
+*.bak
+*.tmp
+
+# === Logs and crash reports ===
+*.log
+*.core
+
+# === clangd index ===
+.clangd/
+.cache/
+.clangd/index/
+
+# === Sanitizer dumps (optional) ===
+leak*.txt
+san.*.log
+
+# === Precompiled headers (if used) ===
+*.gch
+*.pch
+
+# === Conan (optional for later) ===
+conanbuildinfo.*
+.cmake/conan*
+
+# === CTest / testing output ===
+Testing/
+test_output/

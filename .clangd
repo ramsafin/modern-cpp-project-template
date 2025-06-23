@@ -1,0 +1,8 @@
+# .clangd
+CompileFlags:
+  Add: [-Wall, -Wextra, -Wpedantic]
+Diagnostics:
+  UnusedIncludes: Strict
+  Suppress: ["-Wdeprecated-copy"]
+Index:
+  Background: Build

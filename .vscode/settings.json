@@ -1,0 +1,36 @@
+{
+  // CMake
+  "cmake.buildDirectory": "${workspaceFolder}/build",
+  "cmake.configureArgs": [
+    "-DCMAKE_C_COMPILER=/usr/bin/g++",
+    "-DCMAKE_CXX_COMPILER=/usr/bin/g++"
+  ],
+  "cmake.generator": "Ninja",
+  "cmake.preferredGenerators": [
+    "Ninja"
+  ],
+  // Disable Microsoft IntelliSense
+  "C_Cpp.intelliSenseEngine": "disabled",
+  "C_Cpp.enabled": false,
+  // clangd
+  "clangd.arguments": [
+    "--compile-commands-dir=${workspaceFolder}/build",
+    "--header-insertion=never",
+    "--clang-tidy",
+  ],
+  // Formatting / Style
+  "editor.formatOnSave": true,
+  "editor.detectIndentation": false,
+  "editor.tabSize": 2,
+  "editor.rulers": [
+    120
+  ],
+  "[cpp]": {
+    "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd",
+    "editor.formatOnSave": true,
+  },
+  "[c]": {
+    "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd",
+    "editor.formatOnSave": true,
+  }
+}

@@ -1,21 +1,21 @@
 include(FetchContent)
 
+# Download and configure GoogleTest
 FetchContent_Declare(
   googletest
   URL https://github.com/google/googletest/archive/refs/tags/v1.17.0.zip
   DOWNLOAD_EXTRACT_TIMESTAMP TRUE  # Prevents timestamp-related rebuild issues
 )
 
-# Windows-specific: avoid CRT conflicts
+# Avoid static/shared CRT mismatch on Windows
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
 FetchContent_MakeAvailable(googletest)
 
-# Unit tests
+# === Unit Test Target ===
 add_executable(unit_tests
-  main.cpp
+  test_main.cpp
   test_core.cpp
-  test_sanitizers.cpp
 )
 
 target_link_libraries(unit_tests
@@ -27,7 +27,7 @@ target_include_directories(unit_tests
 )
 
 if(TARGET sanitizers)
-  message(STATUS "Enabled sanitizers for unit tests")
+  message(STATUS "✅ Enabled sanitizers for unit tests")
   target_link_libraries(unit_tests PRIVATE sanitizers)
 endif()
 

@@ -1,24 +1,15 @@
-# Optional CMake variables:
-# - ENABLE_ASAN=ON
-# - ENABLE_UBSAN=ON
+# Enable AddressSanitizer + UndefinedBehaviorSanitizer only for "Sanitize" build type
+if(CMAKE_BUILD_TYPE STREQUAL "Sanitize")
+  set(SANITIZER_FLAGS
+    -fsanitize=address
+    -fsanitize=undefined
+    -O1
+    -g
+  )
 
-# Create sanitizer interface library if enabled
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-  set(SANITIZER_FLAGS "")
+  add_library(sanitizers INTERFACE)
+  target_compile_options(sanitizers INTERFACE ${SANITIZER_FLAGS})
+  target_link_options(sanitizers INTERFACE ${SANITIZER_FLAGS})
 
-  if(ENABLE_ASAN)
-    list(APPEND SANITIZER_FLAGS -fsanitize=address)
-  endif()
-
-  if(ENABLE_UBSAN)
-    list(APPEND SANITIZER_FLAGS -fsanitize=undefined)
-  endif()
-
-  if(SANITIZER_FLAGS)
-    add_library(sanitizers INTERFACE)
-    target_compile_options(sanitizers INTERFACE ${SANITIZER_FLAGS})
-    target_link_options(sanitizers INTERFACE ${SANITIZER_FLAGS})
-    message(STATUS "Sanitizer interface created with flags: ${SANITIZER_FLAGS}")
-  endif()
+  message(STATUS "Sanitize build: enabled with flags: ${SANITIZER_FLAGS}")
 endif()
-

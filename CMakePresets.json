@@ -12,50 +12,46 @@
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/${presetName}",
       "cacheVariables": {
-        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
-        "ENABLE_TESTING": "ON"
+        "ENABLE_TESTING": "ON",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
       }
     },
     {
-      "name": "gcc-release",
+      "name": "gcc-RelWithDebInfo",
       "inherits": "base",
-      "description": "Build using GCC in Release mode",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
-        "CMAKE_C_COMPILER": "/usr/bin/gcc",
-        "CMAKE_CXX_COMPILER": "/usr/bin/g++"
-      }
-    },
-    {
-      "name": "gcc-relwithdebinfo",
-      "inherits": "base",
-      "description": "GCC with RelWithDebInfo and sanitizers",
+      "description": "GCC with RelWithDebInfo",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "RelWithDebInfo",
-        "ENABLE_ASAN": "ON",
-        "ENABLE_UBSAN": "ON",
         "CMAKE_C_COMPILER": "/usr/bin/gcc",
         "CMAKE_CXX_COMPILER": "/usr/bin/g++"
       }
     },
     {
-      "name": "clang-release",
+      "name": "gcc-Sanitize",
       "inherits": "base",
-      "description": "Build using Clang in Release mode",
+      "description": "GCC with ASan/UBSan (custom Sanitize build type)",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_BUILD_TYPE": "Sanitize",
+        "CMAKE_C_COMPILER": "/usr/bin/gcc",
+        "CMAKE_CXX_COMPILER": "/usr/bin/g++"
+      }
+    },
+    {
+      "name": "clang-RelWithDebInfo",
+      "inherits": "base",
+      "description": "Clang with RelWithDebInfo",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
         "CMAKE_C_COMPILER": "/usr/bin/clang",
         "CMAKE_CXX_COMPILER": "/usr/bin/clang++"
       }
     },
     {
-      "name": "clang-relwithdebinfo",
+      "name": "clang-Sanitize",
       "inherits": "base",
-      "description": "Clang with RelWithDebInfo and sanitizers",
+      "description": "Clang with ASan/UBSan (custom Sanitize build type)",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
-        "ENABLE_ASAN": "ON",
-        "ENABLE_UBSAN": "ON",
+        "CMAKE_BUILD_TYPE": "Sanitize",
         "CMAKE_C_COMPILER": "/usr/bin/clang",
         "CMAKE_CXX_COMPILER": "/usr/bin/clang++"
       }
@@ -63,20 +59,38 @@
   ],
   "buildPresets": [
     {
-      "name": "gcc-release",
-      "configurePreset": "gcc-release"
+      "name": "gcc-RelWithDebInfo",
+      "configurePreset": "gcc-RelWithDebInfo"
     },
     {
-      "name": "gcc-relwithdebinfo",
-      "configurePreset": "gcc-relwithdebinfo"
+      "name": "gcc-Sanitize",
+      "configurePreset": "gcc-Sanitize"
     },
     {
-      "name": "clang-release",
-      "configurePreset": "clang-release"
+      "name": "clang-RelWithDebInfo",
+      "configurePreset": "clang-RelWithDebInfo"
     },
     {
-      "name": "clang-relwithdebinfo",
-      "configurePreset": "clang-relwithdebinfo"
+      "name": "clang-Sanitize",
+      "configurePreset": "clang-Sanitize"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "gcc-RelWithDebInfo",
+      "configurePreset": "gcc-RelWithDebInfo"
+    },
+    {
+      "name": "gcc-Sanitize",
+      "configurePreset": "gcc-Sanitize"
+    },
+    {
+      "name": "clang-RelWithDebInfo",
+      "configurePreset": "clang-RelWithDebInfo"
+    },
+    {
+      "name": "clang-Sanitize",
+      "configurePreset": "clang-Sanitize"
     }
   ]
 }

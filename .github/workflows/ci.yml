@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build-and-test:
+    name: ${{ matrix.build_type }} on ${{ matrix.os }} with ${{ matrix.compiler }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        compiler: [gcc, clang]
+        build_type: [RelWithDebInfo]
+
+    env:
+      ENABLE_TESTING: ON
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up ${{ matrix.compiler }}
+        run: |
+          sudo apt update
+          sudo apt install -y ninja-build
+          if [ "${{ matrix.compiler }}" = "clang" ]; then
+            sudo apt install -y clang lld
+            echo "CC=clang" >> $GITHUB_ENV
+            echo "CXX=clang++" >> $GITHUB_ENV
+          else
+            sudo apt install -y g++ gcc
+            echo "CC=gcc" >> $GITHUB_ENV
+            echo "CXX=g++" >> $GITHUB_ENV
+          fi
+
+      - name: Configure with CMake
+        run: >
+          cmake -S . -B build
+          -G Ninja
+          -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+          -DENABLE_TESTING=${{ env.ENABLE_TESTING }}
+          ${{ matrix.build_type == 'RelWithDebInfo' && '-DENABLE_ASAN=ON -DENABLE_UBSAN=ON' || '' }}
+
+      - name: Build
+        run: cmake --build build
+
+      - name: Run tests
+        run: ctest --test-dir build --output-on-failure

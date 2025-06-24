@@ -31,9 +31,7 @@ target_link_libraries(${PROJECT_NAME}
   PRIVATE arithmetic
 )
 
-if(TARGET sanitizers)
-  target_link_libraries(${PROJECT_NAME} PRIVATE sanitizers)
-endif()
+target_link_with_sanitizers(${PROJECT_NAME})
 
 # === Unit Testing ===
 option(ENABLE_TESTING "Build tests" ON)

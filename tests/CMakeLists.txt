@@ -22,10 +22,7 @@ target_link_libraries(unit_tests
   PRIVATE gtest_main arithmetic
 )
 
-if(TARGET sanitizers)
-  message(STATUS "✅ Enabled sanitizers for unit tests")
-  target_link_libraries(unit_tests PRIVATE sanitizers)
-endif()
+target_link_with_sanitizers(unit_tests)
 
 # Automatically discover and register all test cases
 include(GoogleTest)

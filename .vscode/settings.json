@@ -9,6 +9,7 @@
   "cmake.preferredGenerators": [
     "Ninja"
   ],
+  "cmake.autoReload": false,
   // Disable Microsoft IntelliSense
   "C_Cpp.intelliSenseEngine": "disabled",
   "C_Cpp.enabled": false,

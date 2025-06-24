@@ -1,14 +1,24 @@
 name: clang-tidy
 
 on:
-  pull_request:
-    paths:
-      - '**.cpp'
-      - '**.h'
-      - '**.hpp'
   push:
     branches:
       - master
+    paths:
+      - '**/*.cpp'
+      - '**/*.hpp'
+      - '.clang-tidy'
+      - 'CMakePresets.json'
+      - 'CMakeLists.txt'
+      - '.github/workflows/clang-tidy.yml'
+  pull_request:
+    paths:
+      - '**/*.cpp'
+      - '**/*.hpp'
+      - '.clang-tidy'
+      - 'CMakePresets.json'
+      - 'CMakeLists.txt'
+      - '.github/workflows/clang-tidy.yml'
 
 jobs:
   lint:
@@ -27,5 +37,4 @@ jobs:
 
       - name: Run clang-tidy
         run: |
-          find src include tests -name '*.cpp' \
-            | xargs clang-tidy -p build/gcc-RelWithDebInfo
+          find src include tests -name '*.cpp' | xargs clang-tidy -p build/gcc-RelWithDebInfo

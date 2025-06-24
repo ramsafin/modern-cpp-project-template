@@ -1,13 +1,20 @@
 name: clang-format
 
 on:
-  pull_request:
-    paths:
-      - '**.cpp'
-      - '**.hpp'
   push:
     branches:
       - master
+    paths:
+      - '**/*.cpp'
+      - '**/*.hpp'
+      - '.clang-format'
+      - '.github/workflows/clang-format.yml'
+  pull_request:
+    paths:
+      - '**/*.cpp'
+      - '**/*.hpp'
+      - '.clang-format'
+      - '.github/workflows/clang-format.yml'
 
 jobs:
   format-check:

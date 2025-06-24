@@ -3,8 +3,22 @@ name: CI
 on:
   push:
     branches: [ master ]
+    paths:
+      - '**/*.cpp'
+      - '**/*.hpp'
+      - 'CMakeLists.txt'
+      - 'CMakePresets.json'
+      - 'cmake/**'
+      - '.github/workflows/ci.yml'
   pull_request:
     branches: [ master ]
+    paths:
+      - '**/*.cpp'
+      - '**/*.hpp'
+      - 'CMakeLists.txt'
+      - 'CMakePresets.json'
+      - 'cmake/**'
+      - '.github/workflows/ci.yml'
 
 jobs:
   build-and-test:
@@ -15,9 +29,6 @@ jobs:
         os: [ubuntu-latest]
         compiler: [gcc, clang]
         build_type: [RelWithDebInfo, Sanitize]
-
-    env:
-      ENABLE_TESTING: ON
 
     steps:
       - name: Checkout code

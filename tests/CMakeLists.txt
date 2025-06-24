@@ -15,15 +15,11 @@ FetchContent_MakeAvailable(googletest)
 # === Unit Test Target ===
 add_executable(unit_tests
   test_main.cpp
-  test_core.cpp
+  test_arithmetic.cpp
 )
 
 target_link_libraries(unit_tests
-  PRIVATE gtest_main
-)
-
-target_include_directories(unit_tests
-  PRIVATE ${PROJECT_SOURCE_DIR}/include
+  PRIVATE gtest_main arithmetic
 )
 
 if(TARGET sanitizers)

@@ -1,0 +1,31 @@
+name: clang-tidy
+
+on:
+  pull_request:
+    paths:
+      - '**.cpp'
+      - '**.h'
+      - '**.hpp'
+  push:
+    branches:
+      - master
+
+jobs:
+  lint:
+    name: Clang-Tidy Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: sudo apt update && sudo apt install -y clang-tidy cmake ninja-build g++ gcc
+
+      - name: Configure project
+        run: cmake --preset gcc-RelWithDebInfo
+
+      - name: Run clang-tidy
+        run: |
+          find src include tests -name '*.cpp' \
+            | xargs clang-tidy -p build/gcc-RelWithDebInfo

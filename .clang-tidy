@@ -9,9 +9,9 @@ Checks: >
   -cppcoreguidelines-pro-type-vararg,
   -cppcoreguidelines-owning-memory
 
+UseColor: true
 WarningsAsErrors: ''
 HeaderFilterRegex: '.*'
-AnalyzeTemporaryDtors: false
 FormatStyle: file
 CheckOptions:
   - key: modernize-use-nullptr.NullMacros

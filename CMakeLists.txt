@@ -8,16 +8,20 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Export compile_commands.json for clangd and clang-tidy
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# Add custom "Sanitize" build type for multi-config generators (e.g., Visual Studio)
+# Add custom "Sanitize" build type
 if(CMAKE_CONFIGURATION_TYPES)
   list(APPEND CMAKE_CONFIGURATION_TYPES Sanitize)
   list(REMOVE_DUPLICATES CMAKE_CONFIGURATION_TYPES)
   set(CMAKE_CONFIGURATION_TYPES "${CMAKE_CONFIGURATION_TYPES}" CACHE STRING "" FORCE)
 endif()
 
-# Load sanitizer flags if needed
+# Load sanitizers
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 include(Sanitizers)
+
+# Load warnings
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+include(Warnings)
 
 # === Libraries ===
 add_subdirectory(src)
@@ -31,13 +35,13 @@ target_link_libraries(${PROJECT_NAME}
   PRIVATE arithmetic
 )
 
+enable_strict_warnings(${PROJECT_NAME})
 target_link_with_sanitizers(${PROJECT_NAME})
 
 # === Unit Testing ===
 option(ENABLE_TESTING "Build tests" ON)
 
 if(ENABLE_TESTING)
-  message(STATUS "✅ Enabled unit tests")
   enable_testing()
   add_subdirectory(tests)
 endif()

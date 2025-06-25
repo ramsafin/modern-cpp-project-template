@@ -22,6 +22,7 @@ target_link_libraries(unit_tests
   PRIVATE gtest_main arithmetic
 )
 
+enable_warnings(unit_tests)
 target_link_with_sanitizers(unit_tests)
 
 # Automatically discover and register all test cases

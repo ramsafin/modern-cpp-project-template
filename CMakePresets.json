@@ -59,22 +59,34 @@
   ],
   "buildPresets": [
     {
+      "name": "build-base",
+      "hidden": true,
+      "description": "Shared build settings for all compilers",
+      "jobs": 0,
+      "verbose": false,
+      "inheritConfigureEnvironment": true
+    },
+    {
       "name": "gcc-RelWithDebInfo",
+      "inherits": "build-base",
       "configurePreset": "gcc-RelWithDebInfo",
       "description": "Build using gcc-RelWithDebInfo configuration"
     },
     {
       "name": "gcc-Sanitize",
+      "inherits": "build-base",
       "configurePreset": "gcc-Sanitize",
       "description": "Build using gcc-Sanitize configuration"
     },
     {
       "name": "clang-RelWithDebInfo",
+      "inherits": "build-base",
       "configurePreset": "clang-RelWithDebInfo",
       "description": "Build using clang-RelWithDebInfo configuration"
     },
     {
       "name": "clang-Sanitize",
+      "inherits": "build-base",
       "configurePreset": "clang-Sanitize",
       "description": "Build using clang-Sanitize configuration"
     }

@@ -1,21 +1,16 @@
 {
-  // CMake
-  "cmake.buildDirectory": "${workspaceFolder}/build",
-  "cmake.configureArgs": [
-    "-DCMAKE_C_COMPILER=/usr/bin/gcc",
-    "-DCMAKE_CXX_COMPILER=/usr/bin/g++"
-  ],
-  "cmake.generator": "Ninja",
-  "cmake.preferredGenerators": [
-    "Ninja"
-  ],
+  // Use CMake presets instead of manual configuration
+  "cmake.useCMakePresets": "always",
+  "cmake.configurePreset": "gcc-RelWithDebInfo",
+  "cmake.buildPreset": "gcc-RelWithDebInfo",
+  "cmake.testPreset": "gcc-RelWithDebInfo",
   "cmake.autoReload": false,
-  // Disable Microsoft IntelliSense
+  // Disable Microsoft IntelliSense (we use clangd)
   "C_Cpp.intelliSenseEngine": "disabled",
   "C_Cpp.enabled": false,
   // clangd
   "clangd.arguments": [
-    "--compile-commands-dir=${workspaceFolder}/build",
+    "--compile-commands-dir=${workspaceFolder}/build/gcc-RelWithDebInfo",
     "--header-insertion=never",
     "--clang-tidy",
   ],

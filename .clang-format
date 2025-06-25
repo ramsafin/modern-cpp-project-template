@@ -1,10 +1,12 @@
 BasedOnStyle: Google
 IndentWidth: 2
 ColumnLimit: 120
+AccessModifierOffset: -2
 AllowShortFunctionsOnASingleLine: Inline
 SortIncludes: true
-IncludeBlocks: Merge
-DerivePointerAlignment: false
+IncludeBlocks: Preserve
 PointerAlignment: Left
+DerivePointerAlignment: false
 SpaceBeforeParens: ControlStatements
 BreakBeforeBraces: Allman  # Or 'Attach' if you prefer brace on same line
+SpacesBeforeTrailingComments: 2

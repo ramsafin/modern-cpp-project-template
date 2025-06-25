@@ -1,4 +1,5 @@
 #include <iostream>
+
 #include "math/arithmetic.hpp"
 
 int main()

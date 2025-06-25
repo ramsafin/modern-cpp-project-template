@@ -37,6 +37,14 @@
       "description": "GCC build with custom Sanitize configuration"
     },
     {
+      "name": "gcc-RelWithDebInfo-LTO",
+      "inherits": "gcc-RelWithDebInfo",
+      "cacheVariables": {
+        "CMAKE_INTERPROCEDURAL_OPTIMIZATION": "TRUE"
+      },
+      "description": "GCC RelWithDebInfo build with Link Time Optimization (LTO)"
+    },
+    {
       "name": "clang-RelWithDebInfo",
       "inherits": "base",
       "cacheVariables": {
@@ -55,6 +63,14 @@
         "CMAKE_BUILD_TYPE": "Sanitize"
       },
       "description": "Clang build with custom Sanitize configuration"
+    },
+    {
+      "name": "clang-RelWithDebInfo-LTO",
+      "inherits": "clang-RelWithDebInfo",
+      "cacheVariables": {
+        "CMAKE_INTERPROCEDURAL_OPTIMIZATION": "TRUE"
+      },
+      "description": "Clang RelWithDebInfo build with Link Time Optimization (LTO)"
     }
   ],
   "buildPresets": [
@@ -79,6 +95,12 @@
       "description": "Build using gcc-Sanitize configuration"
     },
     {
+      "name": "gcc-RelWithDebInfo-LTO",
+      "inherits": "build-base",
+      "configurePreset": "gcc-RelWithDebInfo-LTO",
+      "description": "Build using GCC + LTO (RelWithDebInfo)"
+    },
+    {
       "name": "clang-RelWithDebInfo",
       "inherits": "build-base",
       "configurePreset": "clang-RelWithDebInfo",
@@ -89,6 +111,12 @@
       "inherits": "build-base",
       "configurePreset": "clang-Sanitize",
       "description": "Build using clang-Sanitize configuration"
+    },
+    {
+      "name": "clang-RelWithDebInfo-LTO",
+      "inherits": "build-base",
+      "configurePreset": "clang-RelWithDebInfo-LTO",
+      "description": "Build using Clang + LTO (RelWithDebInfo)"
     }
   ],
   "testPresets": [
@@ -117,6 +145,12 @@
       "description": "Test using gcc-Sanitize configuration"
     },
     {
+      "name": "gcc-RelWithDebInfo-LTO",
+      "inherits": "test-base",
+      "configurePreset": "gcc-RelWithDebInfo-LTO",
+      "description": "Test using GCC + LTO (RelWithDebInfo)"
+    },
+    {
       "name": "clang-RelWithDebInfo",
       "inherits": "test-base",
       "configurePreset": "clang-RelWithDebInfo",
@@ -127,6 +161,12 @@
       "inherits": "test-base",
       "configurePreset": "clang-Sanitize",
       "description": "Test using clang-Sanitize configuration"
+    },
+    {
+      "name": "clang-RelWithDebInfo-LTO",
+      "inherits": "test-base",
+      "configurePreset": "clang-RelWithDebInfo-LTO",
+      "description": "Test using Clang + LTO (RelWithDebInfo)"
     }
   ]
 }

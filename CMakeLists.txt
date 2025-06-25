@@ -8,6 +8,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Export compile_commands.json for clangd and clang-tidy
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+# Options
+option(ENABLE_TESTING "Build tests" ON)
+
 # Add custom "Sanitize" build type
 if(CMAKE_CONFIGURATION_TYPES)
   list(APPEND CMAKE_CONFIGURATION_TYPES Sanitize)
@@ -15,13 +18,12 @@ if(CMAKE_CONFIGURATION_TYPES)
   set(CMAKE_CONFIGURATION_TYPES "${CMAKE_CONFIGURATION_TYPES}" CACHE STRING "" FORCE)
 endif()
 
-# Load sanitizers
+# Load cmake modules: sanitizers, warnings, lto
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
-include(Sanitizers)
 
-# Load warnings
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+include(Sanitizers)
 include(Warnings)
+include(LTO)
 
 # === Libraries ===
 add_subdirectory(src)
@@ -35,12 +37,11 @@ target_link_libraries(${PROJECT_NAME}
   PRIVATE arithmetic
 )
 
+enable_lto(${PROJECT_NAME})
+enable_sanitizers(${PROJECT_NAME})
 enable_strict_warnings(${PROJECT_NAME})
-target_link_with_sanitizers(${PROJECT_NAME})
 
 # === Unit Testing ===
-option(ENABLE_TESTING "Build tests" ON)
-
 if(ENABLE_TESTING)
   enable_testing()
   add_subdirectory(tests)

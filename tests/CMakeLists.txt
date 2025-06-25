@@ -7,9 +7,6 @@ FetchContent_Declare(
   DOWNLOAD_EXTRACT_TIMESTAMP TRUE  # Prevents timestamp-related rebuild issues
 )
 
-# Avoid static/shared CRT mismatch on Windows
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-
 FetchContent_MakeAvailable(googletest)
 
 # === Unit Test Target ===
@@ -23,7 +20,7 @@ target_link_libraries(unit_tests
 )
 
 enable_warnings(unit_tests)
-target_link_with_sanitizers(unit_tests)
+enable_sanitizers(unit_tests)
 
 # Automatically discover and register all test cases
 include(GoogleTest)

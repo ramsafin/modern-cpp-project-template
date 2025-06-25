@@ -2,8 +2,7 @@
   "version": 4,
   "cmakeMinimumRequired": {
     "major": 3,
-    "minor": 23,
-    "patch": 0
+    "minor": 23
   },
   "configurePresets": [
     {
@@ -14,83 +13,108 @@
       "cacheVariables": {
         "ENABLE_TESTING": "ON",
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
-      }
+      },
+      "description": "Common settings for all configurations"
     },
     {
       "name": "gcc-RelWithDebInfo",
       "inherits": "base",
-      "description": "GCC with RelWithDebInfo",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
-        "CMAKE_C_COMPILER": "/usr/bin/gcc",
-        "CMAKE_CXX_COMPILER": "/usr/bin/g++"
-      }
+        "CMAKE_C_COMPILER": "gcc",
+        "CMAKE_CXX_COMPILER": "g++",
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      },
+      "description": "GCC build with RelWithDebInfo configuration"
     },
     {
       "name": "gcc-Sanitize",
       "inherits": "base",
-      "description": "GCC with ASan/UBSan (custom Sanitize build type)",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Sanitize",
-        "CMAKE_C_COMPILER": "/usr/bin/gcc",
-        "CMAKE_CXX_COMPILER": "/usr/bin/g++"
-      }
+        "CMAKE_C_COMPILER": "gcc",
+        "CMAKE_CXX_COMPILER": "g++",
+        "CMAKE_BUILD_TYPE": "Sanitize"
+      },
+      "description": "GCC build with custom Sanitize configuration"
     },
     {
       "name": "clang-RelWithDebInfo",
       "inherits": "base",
-      "description": "Clang with RelWithDebInfo",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
-        "CMAKE_C_COMPILER": "/usr/bin/clang",
-        "CMAKE_CXX_COMPILER": "/usr/bin/clang++"
-      }
+        "CMAKE_C_COMPILER": "clang",
+        "CMAKE_CXX_COMPILER": "clang++",
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      },
+      "description": "Clang build with RelWithDebInfo configuration"
     },
     {
       "name": "clang-Sanitize",
       "inherits": "base",
-      "description": "Clang with ASan/UBSan (custom Sanitize build type)",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Sanitize",
-        "CMAKE_C_COMPILER": "/usr/bin/clang",
-        "CMAKE_CXX_COMPILER": "/usr/bin/clang++"
-      }
+        "CMAKE_C_COMPILER": "clang",
+        "CMAKE_CXX_COMPILER": "clang++",
+        "CMAKE_BUILD_TYPE": "Sanitize"
+      },
+      "description": "Clang build with custom Sanitize configuration"
     }
   ],
   "buildPresets": [
     {
       "name": "gcc-RelWithDebInfo",
-      "configurePreset": "gcc-RelWithDebInfo"
+      "configurePreset": "gcc-RelWithDebInfo",
+      "description": "Build using gcc-RelWithDebInfo configuration"
     },
     {
       "name": "gcc-Sanitize",
-      "configurePreset": "gcc-Sanitize"
+      "configurePreset": "gcc-Sanitize",
+      "description": "Build using gcc-Sanitize configuration"
     },
     {
       "name": "clang-RelWithDebInfo",
-      "configurePreset": "clang-RelWithDebInfo"
+      "configurePreset": "clang-RelWithDebInfo",
+      "description": "Build using clang-RelWithDebInfo configuration"
     },
     {
       "name": "clang-Sanitize",
-      "configurePreset": "clang-Sanitize"
+      "configurePreset": "clang-Sanitize",
+      "description": "Build using clang-Sanitize configuration"
     }
   ],
   "testPresets": [
     {
+      "name": "test-base",
+      "hidden": true,
+      "description": "Common test settings for all configurations",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "noTestsAction": "error",
+        "stopOnFailure": true
+      }
+    },
+    {
       "name": "gcc-RelWithDebInfo",
-      "configurePreset": "gcc-RelWithDebInfo"
+      "inherits": "test-base",
+      "configurePreset": "gcc-RelWithDebInfo",
+      "description": "Test using gcc-RelWithDebInfo configuration"
     },
     {
       "name": "gcc-Sanitize",
-      "configurePreset": "gcc-Sanitize"
+      "inherits": "test-base",
+      "configurePreset": "gcc-Sanitize",
+      "description": "Test using gcc-Sanitize configuration"
     },
     {
       "name": "clang-RelWithDebInfo",
-      "configurePreset": "clang-RelWithDebInfo"
+      "inherits": "test-base",
+      "configurePreset": "clang-RelWithDebInfo",
+      "description": "Test using clang-RelWithDebInfo configuration"
     },
     {
       "name": "clang-Sanitize",
-      "configurePreset": "clang-Sanitize"
+      "inherits": "test-base",
+      "configurePreset": "clang-Sanitize",
+      "description": "Test using clang-Sanitize configuration"
     }
   ]
 }

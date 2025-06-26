@@ -51,3 +51,5 @@ test_output/
 
 # === Docs ===
 docs/
+!docs/mainpage.md
+

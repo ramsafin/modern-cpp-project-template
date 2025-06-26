@@ -1,5 +1,10 @@
 include(FetchContent)
 
+# Prevent installation of googletest components
+set(INSTALL_GTEST OFF CACHE BOOL "" FORCE)
+set(INSTALL_GMOCK OFF CACHE BOOL "" FORCE)
+set(INSTALL_GTEST_HEADERS OFF CACHE BOOL "" FORCE)
+
 # Download and configure GoogleTest
 FetchContent_Declare(
   googletest
@@ -16,7 +21,7 @@ add_executable(unit_tests
 )
 
 target_link_libraries(unit_tests
-  PRIVATE gtest_main arithmetic
+  PRIVATE gtest_main math
 )
 
 enable_warnings(unit_tests)

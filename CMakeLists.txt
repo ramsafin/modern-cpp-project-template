@@ -21,9 +21,9 @@ endif()
 # Load cmake modules: sanitizers, warnings, lto
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
-include(Sanitizers)
-include(Warnings)
 include(LTO)
+include(Warnings)
+include(Sanitizers)
 
 # === Libraries ===
 add_subdirectory(src)
@@ -34,7 +34,7 @@ add_executable(${PROJECT_NAME}
 )
 
 target_link_libraries(${PROJECT_NAME}
-  PRIVATE arithmetic
+  PRIVATE math
 )
 
 enable_lto(${PROJECT_NAME})
@@ -46,3 +46,48 @@ if(ENABLE_TESTING)
   enable_testing()
   add_subdirectory(tests)
 endif()
+
+# === Installtion ===
+include(GNUInstallDirs)
+include(CMakePackageConfigHelpers)
+
+install(TARGETS math
+  EXPORT mathTargets
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+  INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+
+install(
+  DIRECTORY ${CMAKE_SOURCE_DIR}/include/
+  DESTINATION include
+)
+
+# Export the targets to a file
+install(EXPORT mathTargets
+  FILE mathTargets.cmake
+  NAMESPACE ${PROJECT_NAME}::
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
+)
+
+# Configure a version file
+write_basic_package_version_file(
+  "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
+  VERSION 1.0.0
+  COMPATIBILITY SameMajorVersion
+)
+
+# Configure the main config file
+configure_package_config_file(
+  "${CMAKE_SOURCE_DIR}/cmake/Config.cmake.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+  INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
+)
+
+# Install the config + version
+install(FILES
+  "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
+)

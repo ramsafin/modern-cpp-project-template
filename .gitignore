@@ -48,3 +48,6 @@ conanbuildinfo.*
 # === CTest / testing output ===
 Testing/
 test_output/
+
+# === Docs ===
+docs/

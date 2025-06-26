@@ -14,7 +14,7 @@
 - ✅ CMake presets with Clang & GCC support
 - ✅ C++20 (extendable to C++23)
 - ✅ GoogleTest (with `FetchContent`)
-- ✅ AddressSanitizer + UndefinedBehaviorSanitizer
+- ✅ Sanitizers: AddressSanitizer + UndefinedBehaviorSanitizer
 - ✅ Pre-commit hooks + clang-format + clang-tidy
 - ✅ GitHub Actions CI for builds, tests, and formatting
 

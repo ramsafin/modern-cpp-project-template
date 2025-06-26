@@ -1,8 +1,8 @@
-# Modern C++ project template!
+# Modern C++ Project Template!
 
 [![CI](https://github.com/ramsafin/modern-cpp-project-template/actions/workflows/ci.yml/badge.svg)](https://github.com/ramsafin/modern-cpp-project-template/actions/workflows/ci.yml)
-[![clang-format](https://github.com/ramsafin/modern-cpp-project-template/actions/workflows/clang-format.yml/badge.svg)](https://github.com/ramsafin/modern-cpp-project-template/actions/workflows/clang-format.yml)
-[![clang-tidy](https://github.com/ramsafin/modern-cpp-project-template/actions/workflows/clang-tidy.yml/badge.svg)](https://github.com/ramsafin/modern-cpp-project-template/actions/workflows/clang-tidy.yml)
+[![Clang-Format](https://github.com/ramsafin/modern-cpp-project-template/actions/workflows/clang-format.yml/badge.svg)](https://github.com/ramsafin/modern-cpp-project-template/actions/workflows/clang-format.yml)
+[![Clang-Tidy](https://github.com/ramsafin/modern-cpp-project-template/actions/workflows/clang-tidy.yml/badge.svg)](https://github.com/ramsafin/modern-cpp-project-template/actions/workflows/clang-tidy.yml)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 
 > A modern C++20+ starter project using CMake, GoogleTest, sanitizers, GitHub Actions, and developer tooling.
@@ -34,13 +34,13 @@ cmake --build --preset gcc-RelWithDebInfo
 ctest --preset gcc-RelWithDebInfo
 ```
 
-You can choose from the list of available presets:
+You can list available presets:
 ```bash
 cmake --list-presets
 ```
 
 #### Enable Sanitizers
-Use the special `Sanitize` build type:
+Use the special `Sanitize` build type to catch runtime issues:
 ```bash
 cmake --preset gcc-Sanitize
 cmake --build --preset gcc-Sanitize
@@ -48,7 +48,7 @@ ctest --preset gcc-Sanitize
 ```
 
 #### LTO Builds
-LTO is enabled via special preset:
+LTO is enabled via a dedicated preset:
 ```bash
 cmake --preset gcc-RelWithDebInfo-lto
 cmake --build --preset gcc-RelWithDebInfo-lto
@@ -56,20 +56,20 @@ cmake --build --preset gcc-RelWithDebInfo-lto
 
 #### Testing
 
-Unit tests are enabled by default via the `ENABLE_TESTING` option.
-Tests work with all build types, but `Sanitize` is recommended to catch runtime issues (e.g., buffer overflows).
+- Enabled via the `ENABLE_TESTING` option (`ON` by default)
+- Works with all build types
+- `Sanitize` is recommended to detect memory/undefined behavior issues
+- Tests are auto-discovered using `gtest_discover_tests()`
 
-Run tests using the `Sanitize` build type (recommended):
+Run tests:
 ```bash
 ctest --preset gcc-Sanitize
 ```
 
-Tests are auto-discovered via GoogleTest and integrated into CTest.
-
 ### Code Style and Linting
 
 This project uses:
-- `.clang-format` for formatting (pre-commit hook)
+- `.clang-format` for formatting (enforced via pre-commit)
 - `.clang-tidy` for linting (static analysis)
 
 Run manually:
@@ -80,16 +80,16 @@ clang-tidy src/*.cpp -p build/gcc-RelWithDebInfo
 
 ### Installation
 
-This project supports CMake installation:
+Install includes, libs, and CMake config files:
 ```bash
 cmake --preset gcc-RelWithDebInfo
 cmake --build --preset gcc-RelWithDebInfo
-cmake --install build/gcc-RelWithDebInfo --prefix install
+cmake --install build/gcc-RelWithDebInfo --prefix install # or /usr/local
 ```
 
 This will install the compiled library, public headers and CMake config files for `find_package(...)` consumers.
 
-#### Using in Another Project
+#### Consuming in Another Project
 
 After installation, your project can consume this library like so:
 ```cmake
@@ -110,7 +110,7 @@ You are free to use, modify, distribute, and include this code in commercial or 
 
 ## Contributing
 
-Pull requests are welcome. Please ensure the following before submitting:
+Pull requests are welcome. Please ensure:
 - Code passes all tests
 - Code is formatted and clang-tidy clean
-= Commits follow clear, atomic changes
+- Commits follow clear, atomic changes

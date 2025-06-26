@@ -15,16 +15,18 @@
 - ✅ C++20 (extendable to C++23)
 - ✅ GoogleTest (with `FetchContent`)
 - ✅ Sanitizers: AddressSanitizer + UndefinedBehaviorSanitizer
-- ✅ Pre-commit hooks + clang-format + clang-tidy
+- ✅ Link Time Optimization (LTO) presets
+- ✅ Clang-format + Clang-tidy + Pre-commit hook
 - ✅ GitHub Actions CI for builds, tests, and formatting
+- ✅ Install targets
 
 ---
 
-## 🚀 Build & Test
+## 🚀 Getting Started
 
-This project uses [CMake Presets](https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html).
+This template uses [CMake Presets](https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html).
 
-### Build locally
+### Build and Test
 
 ```bash
 cmake --preset gcc-RelWithDebInfo
@@ -32,35 +34,49 @@ cmake --build --preset gcc-RelWithDebInfo
 ctest --preset gcc-RelWithDebInfo
 ```
 
-### Run Unit Tests
+You can choose from the list of available presets:
+```bash
+cmake --list-presets
+```
+
+#### Enable Sanitizers
+Use the special `Sanitize` build type:
+```bash
+cmake --preset gcc-Sanitize
+cmake --build --preset gcc-Sanitize
+ctest --preset gcc-Sanitize
+```
+
+#### LTO Builds
+LTO is enabled via special preset:
+```bash
+cmake --preset gcc-RelWithDebInfo-lto
+cmake --build --preset gcc-RelWithDebInfo-lto
+```
+
+#### Testing
 
 Unit tests are enabled by default via the `ENABLE_TESTING` option.
 Tests work with all build types, but `Sanitize` is recommended to catch runtime issues (e.g., buffer overflows).
 
 Run tests using the `Sanitize` build type (recommended):
 ```bash
-ctest --preset clang-Sanitize
+ctest --preset gcc-Sanitize
 ```
 
 Tests are auto-discovered via GoogleTest and integrated into CTest.
 
-### Code Style and Lint
+### Code Style and Linting
 
 This project uses:
-- `.clang-format` for formatting
-- `.clang-tidy` for linting
-- Pre-commit hook to enforce formatting
+- `.clang-format` for formatting (pre-commit hook)
+- `.clang-tidy` for linting (static analysis)
 
-To check formatting locally:
+Run manually:
 ```bash
-clang-format -i src/*.cpp include/*.hpp tests/*.cpp tests/*.hpp
+clang-format -i src/*.cpp include/**/*.hpp tests/*.cpp
+clang-tidy src/*.cpp -p build/gcc-RelWithDebInfo
 ```
-
-### Tips
-
-- All sanitizers are enabled via the `Sanitize` build type.
-- CI runs on Clang + GCC using GitHub Actions.
-- You can safely override default settings in `CMakePresets.json`.
 
 ### Installation
 
@@ -90,6 +106,11 @@ cmake -DCMAKE_PREFIX_PATH=/path/to/install ..
 
 This project is licensed under the [Apache License 2.0](LICENSE).
 
+You are free to use, modify, distribute, and include this code in commercial or open-source projects.
+
 ## Contributing
 
-Pull requests are welcome. Please ensure code is formatted and tests pass before submitting.
+Pull requests are welcome. Please ensure the following before submitting:
+- Code passes all tests
+- Code is formatted and clang-tidy clean
+= Commits follow clear, atomic changes

@@ -11,6 +11,7 @@ on:
       - 'include/**/*.hpp'
       - 'src/**/*.cpp'
       - '.github/workflows/docs.yml'
+      - 'docs/mainpage.md'
 
 jobs:
   generate-and-deploy:

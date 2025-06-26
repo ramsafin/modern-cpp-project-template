@@ -50,6 +50,6 @@ Testing/
 test_output/
 
 # === Docs ===
-docs/
+docs/*
 !docs/mainpage.md
 

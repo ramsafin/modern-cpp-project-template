@@ -10,6 +10,7 @@ on:
       - 'Doxyfile'
       - 'include/**/*.hpp'
       - 'src/**/*.cpp'
+      - '.github/workflows/docs.yml'
 
 jobs:
   generate-and-deploy:

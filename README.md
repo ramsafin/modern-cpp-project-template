@@ -62,6 +62,30 @@ clang-format -i src/*.cpp include/*.hpp tests/*.cpp tests/*.hpp
 - CI runs on Clang + GCC using GitHub Actions.
 - You can safely override default settings in `CMakePresets.json`.
 
+### Installation
+
+This project supports CMake installation:
+```bash
+cmake --preset gcc-RelWithDebInfo
+cmake --build --preset gcc-RelWithDebInfo
+cmake --install build/gcc-RelWithDebInfo --prefix install
+```
+
+This will install the compiled library, public headers and CMake config files for `find_package(...)` consumers.
+
+#### Using in Another Project
+
+After installation, your project can consume this library like so:
+```cmake
+find_package(modern_cpp_project REQUIRED)
+target_link_libraries(<your_app> PRIVATE modern_cpp_project::math)
+```
+
+Add this to your CMake call:
+```bash
+cmake -DCMAKE_PREFIX_PATH=/path/to/install ..
+```
+
 ## License
 
 This project is licensed under the [Apache License 2.0](LICENSE).

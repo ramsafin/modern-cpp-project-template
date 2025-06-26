@@ -2,6 +2,8 @@ add_library(math STATIC
   arithmetic.cpp
 )
 
+add_library(${PROJECT_NAME}::math ALIAS math)
+
 target_include_directories(math
   PUBLIC
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>

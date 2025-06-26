@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.23 FATAL_ERROR)
-project(modern_cpp_project LANGUAGES CXX)
+project(modern_cpp_project LANGUAGES CXX VERSION 0.1.0)
 
 # Enable C++20 with strict enforcement
 set(CMAKE_CXX_STANDARD 20)
@@ -28,7 +28,7 @@ include(Sanitizers)
 # === Libraries ===
 add_subdirectory(src)
 
-# === Application target ===
+# === Application ===
 add_executable(${PROJECT_NAME}
   src/main.cpp
 )
@@ -52,7 +52,7 @@ include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 
 install(TARGETS math
-  EXPORT mathTargets
+  EXPORT ${PROJECT_NAME}Targets
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
@@ -61,12 +61,12 @@ install(TARGETS math
 
 install(
   DIRECTORY ${CMAKE_SOURCE_DIR}/include/
-  DESTINATION include
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 
 # Export the targets to a file
-install(EXPORT mathTargets
-  FILE mathTargets.cmake
+install(
+  EXPORT ${PROJECT_NAME}Targets
   NAMESPACE ${PROJECT_NAME}::
   DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
 )
@@ -74,7 +74,7 @@ install(EXPORT mathTargets
 # Configure a version file
 write_basic_package_version_file(
   "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
-  VERSION 1.0.0
+  VERSION ${PROJECT_VERSION}
   COMPATIBILITY SameMajorVersion
 )
 

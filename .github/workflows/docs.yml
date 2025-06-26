@@ -31,7 +31,7 @@ jobs:
         run: cmake --preset gcc-RelWithDebInfo
 
       - name: Generate Doxygen documentation
-        run: cmake --build --preset gcc-RelWithDebInfo --target doc_doxygen
+        run: cmake --build --preset gcc-RelWithDebInfo --target docs
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3

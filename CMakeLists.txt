@@ -101,12 +101,12 @@ if(DOXYGEN_FOUND)
 
   configure_file(${DOXYGEN_IN} ${DOXYGEN_OUT} @ONLY)
 
-  add_custom_target(doc_doxygen
+  add_custom_target(docs
     COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     COMMENT "Generating API documentation with Doxygen"
     VERBATIM
   )
 else()
-  message(STATUS "Doxygen not found. 'doc_doxygen' target will not be available.")
+  message(STATUS "Doxygen not found. 'docs' target will not be available.")
 endif()

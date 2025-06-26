@@ -19,6 +19,7 @@
 - ✅ Clang-format + Clang-tidy + Pre-commit hook
 - ✅ GitHub Actions CI for builds, tests, and formatting
 - ✅ Install targets
+- ✅ Auto-generated API docs via Doxygen
 
 ---
 
@@ -101,6 +102,17 @@ Add this to your CMake call:
 ```bash
 cmake -DCMAKE_PREFIX_PATH=/path/to/install ..
 ```
+
+### Documentation
+
+Documentation is generated using [Doxygen](https://www.doxygen.nl). Docs are built from `Doxyfile`, with output in `docs/html/`.
+
+Generate docs locally:
+```bash
+doxygen Doxyfile
+```
+
+View documentation online: [Modern C++ template](https://ramsafin.github.io/modern-cpp-project-template).
 
 ## License
 

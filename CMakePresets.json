@@ -37,7 +37,7 @@
       "description": "GCC build with custom Sanitize configuration"
     },
     {
-      "name": "gcc-RelWithDebInfo-LTO",
+      "name": "gcc-RelWithDebInfo-lto",
       "inherits": "gcc-RelWithDebInfo",
       "cacheVariables": {
         "CMAKE_INTERPROCEDURAL_OPTIMIZATION": "TRUE"
@@ -65,7 +65,7 @@
       "description": "Clang build with custom Sanitize configuration"
     },
     {
-      "name": "clang-RelWithDebInfo-LTO",
+      "name": "clang-RelWithDebInfo-lto",
       "inherits": "clang-RelWithDebInfo",
       "cacheVariables": {
         "CMAKE_INTERPROCEDURAL_OPTIMIZATION": "TRUE"
@@ -95,9 +95,9 @@
       "description": "Build using gcc-Sanitize configuration"
     },
     {
-      "name": "gcc-RelWithDebInfo-LTO",
+      "name": "gcc-RelWithDebInfo-lto",
       "inherits": "build-base",
-      "configurePreset": "gcc-RelWithDebInfo-LTO",
+      "configurePreset": "gcc-RelWithDebInfo-lto",
       "description": "Build using GCC + LTO (RelWithDebInfo)"
     },
     {
@@ -113,9 +113,9 @@
       "description": "Build using clang-Sanitize configuration"
     },
     {
-      "name": "clang-RelWithDebInfo-LTO",
+      "name": "clang-RelWithDebInfo-lto",
       "inherits": "build-base",
-      "configurePreset": "clang-RelWithDebInfo-LTO",
+      "configurePreset": "clang-RelWithDebInfo-lto",
       "description": "Build using Clang + LTO (RelWithDebInfo)"
     }
   ],
@@ -145,9 +145,9 @@
       "description": "Test using gcc-Sanitize configuration"
     },
     {
-      "name": "gcc-RelWithDebInfo-LTO",
+      "name": "gcc-RelWithDebInfo-lto",
       "inherits": "test-base",
-      "configurePreset": "gcc-RelWithDebInfo-LTO",
+      "configurePreset": "gcc-RelWithDebInfo-lto",
       "description": "Test using GCC + LTO (RelWithDebInfo)"
     },
     {
@@ -163,9 +163,9 @@
       "description": "Test using clang-Sanitize configuration"
     },
     {
-      "name": "clang-RelWithDebInfo-LTO",
+      "name": "clang-RelWithDebInfo-lto",
       "inherits": "test-base",
-      "configurePreset": "clang-RelWithDebInfo-LTO",
+      "configurePreset": "clang-RelWithDebInfo-lto",
       "description": "Test using Clang + LTO (RelWithDebInfo)"
     }
   ]

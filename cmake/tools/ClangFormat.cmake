@@ -12,6 +12,8 @@ if(CLANG_FORMAT_EXE)
     "${CMAKE_SOURCE_DIR}/tests/**/*.cpp"
     "${CMAKE_SOURCE_DIR}/tests/*.hpp"
     "${CMAKE_SOURCE_DIR}/tests/**/*.hpp"
+    "${CMAKE_SOURCE_DIR}/benchmarks/*.cpp"
+    "${CMAKE_SOURCE_DIR}/benchmarks/**/*.cpp"
   )
 
   add_custom_target(clang-format

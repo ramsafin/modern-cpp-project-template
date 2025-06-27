@@ -9,9 +9,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Options
-option(ENABLE_TESTING "Build tests" ON)
-option(BUILD_APP      "Build the demo application" ON)
-option(BUILD_DOCS     "Enable documentation via Doxygen" ON)
+option(ENABLE_TESTING    "Build tests" ON)
+option(ENABLE_BENCHMARKS "Build benchmarks" ON)
+option(BUILD_APP         "Build the demo application" ON)
+option(BUILD_DOCS        "Build documentation via Doxygen" ON)
 
 # Add custom "Sanitize" build type
 if(CMAKE_CONFIGURATION_TYPES)
@@ -40,6 +41,10 @@ endif()
 if(ENABLE_TESTING)
   enable_testing()
   add_subdirectory(tests)
+endif()
+
+if(ENABLE_BENCHMARKS)
+  add_subdirectory(benchmarks)
 endif()
 
 # === Docs ===

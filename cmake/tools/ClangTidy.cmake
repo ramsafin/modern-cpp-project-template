@@ -6,6 +6,8 @@ if(CLANG_TIDY_EXE)
     "${CMAKE_SOURCE_DIR}/src/**/*.cpp"
     "${CMAKE_SOURCE_DIR}/tests/*.cpp"
     "${CMAKE_SOURCE_DIR}/tests/**/*.cpp"
+    "${CMAKE_SOURCE_DIR}/benchmarks/*.cpp"
+    "${CMAKE_SOURCE_DIR}/benchmarks/**/*.cpp"
   )
 
   add_custom_target(clang-tidy

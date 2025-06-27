@@ -11,7 +11,7 @@ Checks: >
 
 UseColor: true
 WarningsAsErrors: ''
-HeaderFilterRegex: '.*'
+HeaderFilterRegex: '^(include|src|tests|benchmarks)/'
 FormatStyle: file
 CheckOptions:
   - key: modernize-use-nullptr.NullMacros

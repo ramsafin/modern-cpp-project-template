@@ -12,6 +12,7 @@
       "binaryDir": "${sourceDir}/build/${presetName}",
       "cacheVariables": {
         "ENABLE_TESTING": "ON",
+        "ENABLE_BENCHMARKS": "ON",
         "BUILD_APP": "ON",
         "BUILD_DOCS": "ON",
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"

@@ -70,13 +70,15 @@ ctest --preset gcc-Sanitize
 ### Code Style and Linting
 
 This project uses:
-- `.clang-format` for formatting (enforced via pre-commit)
-- `.clang-tidy` for linting (static analysis)
+- `.clang-format` for formatting (enforced via pre-commit hook)
+- `.clang-tidy` for static analysis (linting)
 
-Run manually:
+If `clang-format` or `clang-tidy` is not found, the corresponding target will be skipped with a warning.
+
+Run checks manually using custom CMake targets:
 ```bash
-clang-format -i src/*.cpp include/**/*.hpp tests/*.cpp
-clang-tidy src/*.cpp -p build/gcc-RelWithDebInfo
+cmake --build --preset gcc-RelWithDebInfo --target clang-format
+cmake --build --preset gcc-RelWithDebInfo --target clang-tidy
 ```
 
 ### Installation
@@ -107,7 +109,7 @@ cmake -DCMAKE_PREFIX_PATH=/path/to/install ..
 
 Documentation is generated using [Doxygen](https://www.doxygen.nl). Docs are built from `Doxyfile`, with output in `docs/html/`.
 
-Generate docs locally:
+Generate docs locally via custom CMake target:
 ```bash
 cmake --preset gcc-RelWithDebInfo
 cmake --build --preset gcc-RelWithDebInfo --target docs

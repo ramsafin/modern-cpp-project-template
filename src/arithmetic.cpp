@@ -3,14 +3,14 @@
 namespace math
 {
 
-int add(int a, int b)
+int add(int left, int right)
 {
-  return a + b;
+  return left + right;
 }
 
-int subtract(int a, int b)
+int subtract(int left, int right)
 {
-  return a - b;
+  return left - right;
 }
 
 }  // namespace math

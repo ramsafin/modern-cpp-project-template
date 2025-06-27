@@ -53,3 +53,9 @@ include(tools/Doxygen)
 
 # === Installation ===
 include(install/InstallConfig)
+
+# === Formatting ===
+include(tools/ClangFormat)
+
+# === Linting ===
+include(tools/ClangTidy)

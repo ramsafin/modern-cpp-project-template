@@ -36,5 +36,4 @@ jobs:
         run: cmake --preset gcc-RelWithDebInfo
 
       - name: Run clang-tidy
-        run: |
-          find src include tests -name '*.cpp' | xargs clang-tidy -p build/gcc-RelWithDebInfo
+        run: cmake --build build/gcc-RelWithDebInfo/ --target clang-tidy

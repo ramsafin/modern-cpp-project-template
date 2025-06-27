@@ -4,11 +4,11 @@
 
 int main()
 {
-  const int a = 10;
-  const int b = 4;
+  const int left = 10;
+  const int right = 4;
 
-  std::cout << "Add: " << math::add(a, b) << '\n';
-  std::cout << "Subtract: " << math::subtract(a, b) << '\n';
+  std::cout << "Add: " << math::add(left, right) << '\n';
+  std::cout << "Subtract: " << math::subtract(left, right) << '\n';
 
   return 0;
 }

@@ -12,20 +12,20 @@ namespace math
 /**
  * @brief Adds two integers.
  *
- * @param a First integer.
- * @param b Second integer.
- * @return Sum of a and b.
+ * @param left First integer.
+ * @param right Second integer.
+ * @return Sum of left and right.
  */
-int add(int a, int b);
+int add(int left, int right);
 
 /**
  * @brief Subtracts two integers.
  *
- * @param a First integer.
- * @param b Second integer.
- * @return Difference of a and b.
+ * @param left First integer.
+ * @param right Second integer.
+ * @return Difference of left and right.
  */
-int subtract(int a, int b);
+int subtract(int left, int right);
 
 }  // namespace math
 

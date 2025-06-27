@@ -26,9 +26,10 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install clang-format
-        run: sudo apt update && sudo apt install -y clang-format
+        run: sudo apt update && sudo apt install -y clang-format cmake ninja-build g++ gcc
 
-      - name: Run clang-format check
-        run: |
-          FILES=$(find . \( -name '*.cpp' -o -name '*.hpp' \) -not -path "./build/*")
-          clang-format --dry-run --Werror $FILES
+      - name: Configure project
+        run: cmake --preset gcc-RelWithDebInfo
+
+      - name: Run clang-format
+        run: cmake --build build/gcc-RelWithDebInfo/ --target clang-format

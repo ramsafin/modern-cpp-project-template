@@ -6,6 +6,7 @@ cmake_install.cmake
 Makefile
 compile_commands.json
 install/
+!cmake/install
 
 # === Ninja build ===
 *.ninja
@@ -51,5 +52,5 @@ test_output/
 
 # === Docs ===
 docs/*
+!docs/Doxyfile.in
 !docs/mainpage.md
-

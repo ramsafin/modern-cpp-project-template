@@ -43,7 +43,7 @@ if(ENABLE_TESTING)
   add_subdirectory(tests)
 endif()
 
-if(ENABLE_BENCHMARKS)
+if(ENABLE_BENCHMARKS AND NOT CMAKE_BUILD_TYPE STREQUAL "Sanitize")
   add_subdirectory(benchmarks)
 endif()
 

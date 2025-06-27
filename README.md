@@ -47,7 +47,7 @@ cmake --build --preset gcc-Sanitize
 ctest --preset gcc-Sanitize
 ```
 
-#### LTO Builds
+#### Link Time Optimization
 LTO is enabled via a dedicated preset:
 ```bash
 cmake --preset gcc-RelWithDebInfo-lto

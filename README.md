@@ -109,7 +109,8 @@ Documentation is generated using [Doxygen](https://www.doxygen.nl). Docs are bui
 
 Generate docs locally:
 ```bash
-doxygen Doxyfile
+cmake --preset gcc-RelWithDebInfo
+cmake --build --preset gcc-RelWithDebInfo --target docs
 ```
 
 View documentation online: [Modern C++ template](https://ramsafin.github.io/modern-cpp-project-template).

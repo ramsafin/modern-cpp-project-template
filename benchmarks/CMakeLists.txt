@@ -18,4 +18,5 @@ target_link_libraries(benchmarks
   PRIVATE benchmark::benchmark benchmark::benchmark_main ${PROJECT_NAME}::math
 )
 
+enable_sanitizers(benchmarks)
 enable_strict_warnings(benchmarks)

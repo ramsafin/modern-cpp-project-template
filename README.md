@@ -13,7 +13,7 @@
 
 - ✅ CMake presets with Clang & GCC support
 - ✅ C++20 (extendable to C++23)
-- ✅ GoogleTest (with `FetchContent`)
+- ✅ GoogleTest and Google Benchmarks (with `FetchContent`)
 - ✅ Sanitizers, Link Time Optimization (LTO)
 - ✅ Clang-format + Clang-tidy + Pre-commit hook
 - ✅ GitHub Actions CI for builds, tests, docs, and formatting

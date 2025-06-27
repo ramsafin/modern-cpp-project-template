@@ -113,7 +113,7 @@ cmake --preset gcc-RelWithDebInfo
 cmake --build --preset gcc-RelWithDebInfo --target docs
 ```
 
-View documentation online: [Modern C++ template](https://ramsafin.github.io/modern-cpp-project-template).
+View documentation online: [Modern C++ template](https://ramsafin.github.io/modern-cpp-project-template/html).
 
 ## License
 

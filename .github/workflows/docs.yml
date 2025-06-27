@@ -25,7 +25,7 @@ jobs:
       - name: Set up CMake + Doxygen dependencies
         run: |
           sudo apt update
-          sudo apt install -y doxygen graphviz ninja-build
+          sudo apt install -y cmake doxygen graphviz ninja-build
 
       - name: Configure project with CMake Preset
         run: cmake --preset gcc-RelWithDebInfo

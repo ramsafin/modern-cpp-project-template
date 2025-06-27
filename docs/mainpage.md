@@ -3,6 +3,7 @@
 [![CI](https://github.com/ramsafin/modern-cpp-project-template/actions/workflows/ci.yml/badge.svg)](https://github.com/ramsafin/modern-cpp-project-template/actions/workflows/ci.yml)
 [![Clang-Format](https://github.com/ramsafin/modern-cpp-project-template/actions/workflows/clang-format.yml/badge.svg)](https://github.com/ramsafin/modern-cpp-project-template/actions/workflows/clang-format.yml)
 [![Clang-Tidy](https://github.com/ramsafin/modern-cpp-project-template/actions/workflows/clang-tidy.yml/badge.svg)](https://github.com/ramsafin/modern-cpp-project-template/actions/workflows/clang-tidy.yml)
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 
 A modern C++20+ starter project using CMake, GoogleTest, sanitizers, GitHub Actions, and developer tooling.
 
@@ -18,6 +19,7 @@ A modern C++20+ starter project using CMake, GoogleTest, sanitizers, GitHub Acti
 - ✅ Clang-format + Clang-tidy + Pre-commit hook
 - ✅ GitHub Actions CI for builds, tests, and formatting
 - ✅ Install targets
+- ✅ Auto-generated API docs via Doxygen
 
 ---
 
@@ -68,13 +70,15 @@ ctest --preset gcc-Sanitize
 ### Code Style and Linting
 
 This project uses:
-- `.clang-format` for formatting (enforced via pre-commit)
-- `.clang-tidy` for linting (static analysis)
+- `.clang-format` for formatting (enforced via pre-commit hook)
+- `.clang-tidy` for static analysis (linting)
 
-Run manually:
+If `clang-format` or `clang-tidy` is not found, the corresponding target will be skipped with a warning.
+
+Run checks manually using custom CMake targets:
 ```bash
-clang-format -i src/*.cpp include/**/*.hpp tests/*.cpp
-clang-tidy src/*.cpp -p build/gcc-RelWithDebInfo
+cmake --build --preset gcc-RelWithDebInfo --target clang-format
+cmake --build --preset gcc-RelWithDebInfo --target clang-tidy
 ```
 
 ### Installation
@@ -99,6 +103,16 @@ target_link_libraries(<your_app> PRIVATE modern_cpp_project::math)
 Add this to your CMake call:
 ```bash
 cmake -DCMAKE_PREFIX_PATH=/path/to/install ..
+```
+
+### Documentation
+
+Documentation is generated using Doxygen. Docs are built from `Doxyfile`, with output in `docs/html/`.
+
+Generate docs locally via custom CMake target:
+```bash
+cmake --preset gcc-RelWithDebInfo
+cmake --build --preset gcc-RelWithDebInfo --target docs
 ```
 
 ## License

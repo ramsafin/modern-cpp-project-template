@@ -10,6 +10,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Options
 option(ENABLE_TESTING "Build tests" ON)
+option(BUILD_APP      "Build the demo application" ON)
+option(BUILD_DOCS     "Enable documentation via Doxygen" ON)
 
 # Add custom "Sanitize" build type
 if(CMAKE_CONFIGURATION_TYPES)
@@ -21,26 +23,18 @@ endif()
 # Load cmake modules
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
-# Warnings, sanitizers, Link Time Optimiziatiion (LTO)
+# Warnings, sanitizers, Link Time Optimization (LTO)
 include(options/LTO)
 include(options/Warnings)
 include(options/Sanitizers)
 
 # === Libraries ===
-add_subdirectory(src) # modern_cpp_template::math
+add_subdirectory(src) # modern_cpp_project::math
 
 # === Application ===
-add_executable(${PROJECT_NAME}
-  src/main.cpp
-)
-
-target_link_libraries(${PROJECT_NAME}
-  PRIVATE math
-)
-
-enable_lto(${PROJECT_NAME})
-enable_sanitizers(${PROJECT_NAME})
-enable_strict_warnings(${PROJECT_NAME})
+if(BUILD_APP)
+  add_subdirectory(app) # modern_cpp_project_app
+endif()
 
 # === Tests ===
 if(ENABLE_TESTING)
@@ -49,7 +43,9 @@ if(ENABLE_TESTING)
 endif()
 
 # === Docs ===
-include(tools/Doxygen)
+if(BUILD_DOCS)
+  include(tools/Doxygen)
+endif()
 
 # === Installation ===
 include(install/InstallConfig)

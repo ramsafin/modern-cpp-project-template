@@ -28,7 +28,7 @@ jobs:
           sudo apt install -y doxygen graphviz cmake ninja-build g++ gcc
 
       - name: Configure project with CMake Preset
-        run: cmake --preset gcc-RelWithDebInfo
+        run: cmake --preset gcc-RelWithDebInfo -DBUILD_DOCS=ON
 
       - name: Generate Doxygen documentation
         run: cmake --build --preset gcc-RelWithDebInfo --target docs

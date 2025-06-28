@@ -60,3 +60,4 @@ include(tools/ClangFormat)
 
 # === Linting ===
 include(tools/ClangTidy)
+include(tools/Cppcheck)

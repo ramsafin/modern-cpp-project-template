@@ -6,7 +6,7 @@
   },
   "configurePresets": [
     {
-      "name": "base",
+      "name": "conf-base",
       "hidden": true,
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/${presetName}",
@@ -17,97 +17,137 @@
         "BUILD_DOCS": "ON",
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
       },
-      "description": "Common settings for all configurations"
+      "description": "Shared settings for all configurations"
+    },
+    {
+      "name": "conf-base-gcc",
+      "hidden": true,
+      "inherits": "conf-base",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "gcc",
+        "CMAKE_CXX_COMPILER": "g++"
+      },
+      "description": "Base settings for GCC configurations"
+    },
+    {
+      "name": "conf-base-clang",
+      "hidden": true,
+      "inherits": "conf-base",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "clang",
+        "CMAKE_CXX_COMPILER": "clang++"
+      },
+      "description": "Base settings for Clang configurations"
+    },
+    {
+      "name": "gcc-Debug",
+      "inherits": "conf-base-gcc",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      },
+      "description": "GCC Debug build"
+    },
+    {
+      "name": "gcc-Release",
+      "inherits": "conf-base-gcc",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "description": "GCC Release build"
     },
     {
       "name": "gcc-RelWithDebInfo",
-      "inherits": "base",
+      "inherits": "conf-base-gcc",
       "cacheVariables": {
-        "CMAKE_C_COMPILER": "gcc",
-        "CMAKE_CXX_COMPILER": "g++",
         "CMAKE_BUILD_TYPE": "RelWithDebInfo"
       },
-      "description": "GCC build with RelWithDebInfo configuration"
+      "description": "GCC RelWithDebInfo build"
     },
     {
       "name": "gcc-Sanitize",
-      "inherits": "base",
+      "inherits": "conf-base-gcc",
       "cacheVariables": {
-        "CMAKE_C_COMPILER": "gcc",
-        "CMAKE_CXX_COMPILER": "g++",
-        "CMAKE_BUILD_TYPE": "Sanitize"
+        "CMAKE_BUILD_TYPE": "Sanitize",
+        "ENABLE_BENCHMARKS": "OFF",
+        "BUILD_APP": "OFF"
       },
-      "description": "GCC build with custom Sanitize configuration"
-    },
-    {
-      "name": "gcc-RelWithDebInfo-lto",
-      "inherits": "gcc-RelWithDebInfo",
-      "cacheVariables": {
-        "CMAKE_C_COMPILER": "gcc",
-        "CMAKE_CXX_COMPILER": "g++",
-        "CMAKE_INTERPROCEDURAL_OPTIMIZATION": "TRUE"
-      },
-      "description": "GCC RelWithDebInfo build with Link Time Optimization (LTO)"
+      "description": "GCC build with sanitizers"
     },
     {
       "name": "gcc-Coverage",
-      "inherits": "base",
+      "inherits": "conf-base-gcc",
       "cacheVariables": {
-        "CMAKE_C_COMPILER": "gcc",
-        "CMAKE_CXX_COMPILER": "g++",
-        "CMAKE_BUILD_TYPE": "Coverage"
+        "CMAKE_BUILD_TYPE": "Coverage",
+        "ENABLE_BENCHMARKS": "OFF",
+        "BUILD_APP": "OFF"
       },
-      "description": "GCC build with coverage"
+      "description": "GCC build for coverage analysis"
+    },
+    {
+      "name": "clang-Debug",
+      "inherits": "conf-base-clang",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      },
+      "description": "Clang Debug build"
+    },
+    {
+      "name": "clang-Release",
+      "inherits": "conf-base-clang",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "description": "Clang Release build"
     },
     {
       "name": "clang-RelWithDebInfo",
-      "inherits": "base",
+      "inherits": "conf-base-clang",
       "cacheVariables": {
-        "CMAKE_C_COMPILER": "clang",
-        "CMAKE_CXX_COMPILER": "clang++",
         "CMAKE_BUILD_TYPE": "RelWithDebInfo"
       },
-      "description": "Clang build with RelWithDebInfo configuration"
+      "description": "Clang RelWithDebInfo build"
     },
     {
       "name": "clang-Sanitize",
-      "inherits": "base",
+      "inherits": "conf-base-clang",
       "cacheVariables": {
-        "CMAKE_C_COMPILER": "clang",
-        "CMAKE_CXX_COMPILER": "clang++",
-        "CMAKE_BUILD_TYPE": "Sanitize"
+        "CMAKE_BUILD_TYPE": "Sanitize",
+        "ENABLE_BENCHMARKS": "OFF",
+        "BUILD_APP": "OFF"
       },
-      "description": "Clang build with custom Sanitize configuration"
-    },
-    {
-      "name": "clang-RelWithDebInfo-lto",
-      "inherits": "clang-RelWithDebInfo",
-      "cacheVariables": {
-        "CMAKE_C_COMPILER": "clang",
-        "CMAKE_CXX_COMPILER": "clang++",
-        "CMAKE_INTERPROCEDURAL_OPTIMIZATION": "TRUE"
-      },
-      "description": "Clang RelWithDebInfo build with Link Time Optimization (LTO)"
+      "description": "Clang build with sanitizers"
     },
     {
       "name": "clang-Coverage",
-      "inherits": "base",
+      "inherits": "conf-base-clang",
       "cacheVariables": {
-        "CMAKE_C_COMPILER": "clang",
-        "CMAKE_CXX_COMPILER": "clang++",
-        "CMAKE_BUILD_TYPE": "Coverage"
+        "CMAKE_BUILD_TYPE": "Coverage",
+        "ENABLE_BENCHMARKS": "OFF",
+        "BUILD_APP": "OFF"
       },
-      "description": "Clang build with coverage"
+      "description": "Clang build for coverage analysis"
     }
   ],
   "buildPresets": [
     {
       "name": "build-base",
       "hidden": true,
-      "description": "Shared build settings for all compilers",
       "jobs": 0,
       "verbose": false,
-      "inheritConfigureEnvironment": true
+      "inheritConfigureEnvironment": true,
+      "description": "Shared build settings for all configurations"
+    },
+    {
+      "name": "gcc-Debug",
+      "inherits": "build-base",
+      "configurePreset": "gcc-Debug",
+      "description": "Build using gcc-Debug configuration"
+    },
+    {
+      "name": "gcc-Release",
+      "inherits": "build-base",
+      "configurePreset": "gcc-Release",
+      "description": "Build using gcc-Release configuration"
     },
     {
       "name": "gcc-RelWithDebInfo",
@@ -122,16 +162,22 @@
       "description": "Build using gcc-Sanitize configuration"
     },
     {
-      "name": "gcc-RelWithDebInfo-lto",
-      "inherits": "build-base",
-      "configurePreset": "gcc-RelWithDebInfo-lto",
-      "description": "Build using GCC + LTO (RelWithDebInfo)"
-    },
-    {
       "name": "gcc-Coverage",
       "inherits": "build-base",
       "configurePreset": "gcc-Coverage",
-      "description": "Build using GCC + Coverage"
+      "description": "Build using gcc-Coverage configuration"
+    },
+    {
+      "name": "clang-Debug",
+      "inherits": "build-base",
+      "configurePreset": "clang-Debug",
+      "description": "Build using clang-Debug configuration"
+    },
+    {
+      "name": "clang-Release",
+      "inherits": "build-base",
+      "configurePreset": "clang-Release",
+      "description": "Build using clang-Release configuration"
     },
     {
       "name": "clang-RelWithDebInfo",
@@ -146,23 +192,17 @@
       "description": "Build using clang-Sanitize configuration"
     },
     {
-      "name": "clang-RelWithDebInfo-lto",
-      "inherits": "build-base",
-      "configurePreset": "clang-RelWithDebInfo-lto",
-      "description": "Build using Clang + LTO (RelWithDebInfo)"
-    },
-    {
       "name": "clang-Coverage",
       "inherits": "build-base",
       "configurePreset": "clang-Coverage",
-      "description": "Build using Clang + Coverage"
+      "description": "Build using clang-Coverage configuration"
     }
   ],
   "testPresets": [
     {
       "name": "test-base",
       "hidden": true,
-      "description": "Common test settings for all configurations",
+      "description": "Shared test settings for all configurations",
       "output": {
         "outputOnFailure": true
       },
@@ -170,6 +210,18 @@
         "noTestsAction": "error",
         "stopOnFailure": true
       }
+    },
+    {
+      "name": "gcc-Debug",
+      "inherits": "test-base",
+      "configurePreset": "gcc-Debug",
+      "description": "Test using gcc-Debug configuration"
+    },
+    {
+      "name": "gcc-Release",
+      "inherits": "test-base",
+      "configurePreset": "gcc-Release",
+      "description": "Test using gcc-Release configuration"
     },
     {
       "name": "gcc-RelWithDebInfo",
@@ -184,16 +236,22 @@
       "description": "Test using gcc-Sanitize configuration"
     },
     {
-      "name": "gcc-RelWithDebInfo-lto",
-      "inherits": "test-base",
-      "configurePreset": "gcc-RelWithDebInfo-lto",
-      "description": "Test using GCC + LTO (RelWithDebInfo)"
-    },
-    {
       "name": "gcc-Coverage",
       "inherits": "test-base",
       "configurePreset": "gcc-Coverage",
-      "description": "Test using GCC + Coverage"
+      "description": "Test using gcc-Coverage configuration"
+    },
+    {
+      "name": "clang-Debug",
+      "inherits": "test-base",
+      "configurePreset": "clang-Debug",
+      "description": "Test using clang-Debug configuration"
+    },
+    {
+      "name": "clang-Release",
+      "inherits": "test-base",
+      "configurePreset": "clang-Release",
+      "description": "Test using clang-Release configuration"
     },
     {
       "name": "clang-RelWithDebInfo",
@@ -208,16 +266,10 @@
       "description": "Test using clang-Sanitize configuration"
     },
     {
-      "name": "clang-RelWithDebInfo-lto",
-      "inherits": "test-base",
-      "configurePreset": "clang-RelWithDebInfo-lto",
-      "description": "Test using Clang + LTO (RelWithDebInfo)"
-    },
-    {
       "name": "clang-Coverage",
       "inherits": "test-base",
       "configurePreset": "clang-Coverage",
-      "description": "Test using Clang + Coverage"
+      "description": "Test using clang-Coverage configuration"
     }
   ]
 }

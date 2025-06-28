@@ -27,6 +27,15 @@ int add(int left, int right);
  */
 int subtract(int left, int right);
 
+/**
+ * @brief Multiplies two integers.
+ *
+ * @param left First integer.
+ * @param right Second integer.
+ * @return Multiplication of left and right.
+ */
+int multiply(int left, int right);
+
 }  // namespace math
 
 #endif

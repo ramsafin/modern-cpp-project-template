@@ -21,19 +21,29 @@ if(CMAKE_CONFIGURATION_TYPES)
   set(CMAKE_CONFIGURATION_TYPES "${CMAKE_CONFIGURATION_TYPES}" CACHE STRING "" FORCE)
 endif()
 
+# Add custom "Coverage" build type
+if(CMAKE_CONFIGURATION_TYPES)
+  list(APPEND CMAKE_CONFIGURATION_TYPES Coverage)
+  list(REMOVE_DUPLICATES CMAKE_CONFIGURATION_TYPES)
+  set(CMAKE_CONFIGURATION_TYPES "${CMAKE_CONFIGURATION_TYPES}" CACHE STRING "" FORCE)
+endif()
+
 # Load cmake modules
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
-# Warnings, sanitizers, Link Time Optimization (LTO)
+# Warnings, Sanitizers, Link Time Optimization (LTO)
 include(options/LTO)
 include(options/Warnings)
 include(options/Sanitizers)
+
+# Coverage
+include(tools/Coverage)
 
 # === Libraries ===
 add_subdirectory(src) # modern_cpp_project::math
 
 # === Application ===
-if(BUILD_APP)
+if(BUILD_APP AND NOT CMAKE_BUILD_TYPE STREQUAL "Coverage")
   add_subdirectory(app) # modern_cpp_project_app
 endif()
 
@@ -43,8 +53,10 @@ if(ENABLE_TESTING)
   add_subdirectory(tests)
 endif()
 
-if(ENABLE_BENCHMARKS AND NOT CMAKE_BUILD_TYPE STREQUAL "Sanitize")
-  add_subdirectory(benchmarks)
+if(ENABLE_BENCHMARKS)
+  if (NOT CMAKE_BUILD_TYPE STREQUAL "Coverage" AND NOT CMAKE_BUILD_TYPE STREQUAL "Sanitize")
+    add_subdirectory(benchmarks)
+  endif()
 endif()
 
 # === Docs ===

@@ -25,6 +25,7 @@ target_link_libraries(unit_tests
 )
 
 enable_warnings(unit_tests)
+enable_coverage(unit_tests)
 enable_sanitizers(unit_tests)
 
 # Automatically discover and register all test cases

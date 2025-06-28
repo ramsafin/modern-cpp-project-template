@@ -43,9 +43,21 @@
       "name": "gcc-RelWithDebInfo-lto",
       "inherits": "gcc-RelWithDebInfo",
       "cacheVariables": {
+        "CMAKE_C_COMPILER": "gcc",
+        "CMAKE_CXX_COMPILER": "g++",
         "CMAKE_INTERPROCEDURAL_OPTIMIZATION": "TRUE"
       },
       "description": "GCC RelWithDebInfo build with Link Time Optimization (LTO)"
+    },
+    {
+      "name": "gcc-Coverage",
+      "inherits": "base",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "gcc",
+        "CMAKE_CXX_COMPILER": "g++",
+        "CMAKE_BUILD_TYPE": "Coverage"
+      },
+      "description": "GCC build with coverage"
     },
     {
       "name": "clang-RelWithDebInfo",
@@ -71,9 +83,21 @@
       "name": "clang-RelWithDebInfo-lto",
       "inherits": "clang-RelWithDebInfo",
       "cacheVariables": {
+        "CMAKE_C_COMPILER": "clang",
+        "CMAKE_CXX_COMPILER": "clang++",
         "CMAKE_INTERPROCEDURAL_OPTIMIZATION": "TRUE"
       },
       "description": "Clang RelWithDebInfo build with Link Time Optimization (LTO)"
+    },
+    {
+      "name": "clang-Coverage",
+      "inherits": "base",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "clang",
+        "CMAKE_CXX_COMPILER": "clang++",
+        "CMAKE_BUILD_TYPE": "Coverage"
+      },
+      "description": "Clang build with coverage"
     }
   ],
   "buildPresets": [
@@ -104,6 +128,12 @@
       "description": "Build using GCC + LTO (RelWithDebInfo)"
     },
     {
+      "name": "gcc-Coverage",
+      "inherits": "build-base",
+      "configurePreset": "gcc-Coverage",
+      "description": "Build using GCC + Coverage"
+    },
+    {
       "name": "clang-RelWithDebInfo",
       "inherits": "build-base",
       "configurePreset": "clang-RelWithDebInfo",
@@ -120,6 +150,12 @@
       "inherits": "build-base",
       "configurePreset": "clang-RelWithDebInfo-lto",
       "description": "Build using Clang + LTO (RelWithDebInfo)"
+    },
+    {
+      "name": "clang-Coverage",
+      "inherits": "build-base",
+      "configurePreset": "clang-Coverage",
+      "description": "Build using Clang + Coverage"
     }
   ],
   "testPresets": [
@@ -154,6 +190,12 @@
       "description": "Test using GCC + LTO (RelWithDebInfo)"
     },
     {
+      "name": "gcc-Coverage",
+      "inherits": "test-base",
+      "configurePreset": "gcc-Coverage",
+      "description": "Test using GCC + Coverage"
+    },
+    {
       "name": "clang-RelWithDebInfo",
       "inherits": "test-base",
       "configurePreset": "clang-RelWithDebInfo",
@@ -170,6 +212,12 @@
       "inherits": "test-base",
       "configurePreset": "clang-RelWithDebInfo-lto",
       "description": "Test using Clang + LTO (RelWithDebInfo)"
+    },
+    {
+      "name": "clang-Coverage",
+      "inherits": "test-base",
+      "configurePreset": "clang-Coverage",
+      "description": "Test using Clang + Coverage"
     }
   ]
 }

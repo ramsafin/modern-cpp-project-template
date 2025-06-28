@@ -10,6 +10,8 @@ target_include_directories(math
     $<INSTALL_INTERFACE:include>
 )
 
+enable_coverage(math)
+
 enable_lto(math)
 enable_sanitizers(math)
 enable_strict_warnings(math)

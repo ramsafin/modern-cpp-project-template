@@ -15,7 +15,7 @@
 - ✅ C++20 (extendable to C++23)
 - ✅ GoogleTest and Google Benchmarks (with `FetchContent`)
 - ✅ Sanitizers, Link Time Optimization (LTO)
-- ✅ Clang-format + Clang-tidy + Pre-commit hook
+- ✅ Clang-format + Clang-tidy + Cppcheck + Pre-commit hook
 - ✅ GitHub Actions CI for builds, tests, docs, and formatting
 - ✅ Install targets (`find_package(...)` supported)
 - ✅ Auto-generated API docs via Doxygen

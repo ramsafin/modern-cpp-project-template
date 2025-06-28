@@ -93,7 +93,7 @@ Install includes, libs, and CMake config files:
 ```bash
 cmake --preset gcc-Release
 cmake --build --preset gcc-Release
-cmake --install build/gcc-RelWithDebInfo --prefix install # or /usr/local
+cmake --install build/gcc-Release --prefix install # or /usr/local
 ```
 
 This will install the compiled library, public headers and CMake config files for `find_package(...)` consumers.

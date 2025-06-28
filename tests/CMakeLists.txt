@@ -24,9 +24,9 @@ target_link_libraries(unit_tests
   PRIVATE gtest_main math
 )
 
-enable_warnings(unit_tests)
 enable_coverage(unit_tests)
 enable_sanitizers(unit_tests)
+enable_strict_warnings(unit_tests)
 
 # Automatically discover and register all test cases
 include(GoogleTest)

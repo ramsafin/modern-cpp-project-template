@@ -11,7 +11,5 @@ target_include_directories(math
 )
 
 enable_coverage(math)
-
-enable_lto(math)
 enable_sanitizers(math)
 enable_strict_warnings(math)

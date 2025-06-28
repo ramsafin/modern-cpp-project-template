@@ -6,6 +6,5 @@ target_link_libraries(${PROJECT_NAME}_app
   PRIVATE ${PROJECT_NAME}::math
 )
 
-enable_lto(${PROJECT_NAME}_app)
 enable_sanitizers(${PROJECT_NAME}_app)
 enable_strict_warnings(${PROJECT_NAME}_app)

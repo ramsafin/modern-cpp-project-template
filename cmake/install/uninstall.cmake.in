@@ -1,0 +1,6 @@
+if(EXISTS "@CMAKE_INSTALL_PREFIX@/install_manifest.txt")
+  file(READ "@CMAKE_INSTALL_PREFIX@/install_manifest.txt" files)
+  foreach(file ${files})
+    file(REMOVE ${file})
+  endforeach()
+endif()

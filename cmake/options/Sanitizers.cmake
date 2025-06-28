@@ -1,21 +1,25 @@
-# Define sanitizer flags only in Sanitize build type
-if(CMAKE_BUILD_TYPE STREQUAL "Sanitize")
+include_guard(GLOBAL)
+
+# Internal: only apply sanitizers in Sanitize build type
+function(enable_sanitizers target)
+  if(NOT CMAKE_BUILD_TYPE STREQUAL "Sanitize")
+    message(STATUS "Skipping sanitizers for target '${target}' (build type: ${CMAKE_BUILD_TYPE})")
+    return()
+  endif()
+
+  if(NOT CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
+    message(WARNING "Sanitizers are only supported with Clang or GCC")
+    return()
+  endif()
+
   set(SANITIZER_FLAGS
     -fsanitize=address
     -fsanitize=undefined
     -O1
     -g
   )
-  message(STATUS "✅\tSanitize build enabled with flags: ${SANITIZER_FLAGS}")
-endif()
 
-# Apply sanitizer flags to a specific target
-function(enable_sanitizers target)
-  if(CMAKE_BUILD_TYPE STREQUAL "Sanitize")
-    target_compile_options(${target} PRIVATE ${SANITIZER_FLAGS})
-    target_link_options(${target} PRIVATE ${SANITIZER_FLAGS})
-    message(STATUS "✅\tEnabled sanitizers for target ${target}")
-  else()
-    message(STATUS "ℹ️\tSkipping sanitizers for target: ${target} (build type: ${CMAKE_BUILD_TYPE})")
-  endif()
+  target_compile_options(${target} PRIVATE ${SANITIZER_FLAGS})
+  target_link_options(${target} PRIVATE ${SANITIZER_FLAGS})
+  message(STATUS "Enabled sanitizers for target '${target}': ${SANITIZER_FLAGS}")
 endfunction()

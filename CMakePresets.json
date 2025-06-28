@@ -12,9 +12,11 @@
       "binaryDir": "${sourceDir}/build/${presetName}",
       "cacheVariables": {
         "ENABLE_TESTING": "ON",
-        "ENABLE_BENCHMARKS": "ON",
-        "BUILD_APP": "ON",
-        "BUILD_DOCS": "ON",
+        "ENABLE_BENCHMARKS": "OFF",
+        "BUILD_APP": "OFF",
+        "BUILD_DOCS": "OFF",
+        "ENABLE_WARNINGS": "ON",
+        "ENABLE_STRICT_WARNINGS": "ON",
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
       },
       "description": "Shared settings for all configurations"
@@ -68,8 +70,7 @@
       "inherits": "conf-base-gcc",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Sanitize",
-        "ENABLE_BENCHMARKS": "OFF",
-        "BUILD_APP": "OFF"
+        "ENABLE_SANITIZERS": "ON"
       },
       "description": "GCC build with sanitizers"
     },
@@ -78,8 +79,7 @@
       "inherits": "conf-base-gcc",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Coverage",
-        "ENABLE_BENCHMARKS": "OFF",
-        "BUILD_APP": "OFF"
+        "ENABLE_COVERAGE": "ON"
       },
       "description": "GCC build for coverage analysis"
     },
@@ -112,8 +112,7 @@
       "inherits": "conf-base-clang",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Sanitize",
-        "ENABLE_BENCHMARKS": "OFF",
-        "BUILD_APP": "OFF"
+        "ENABLE_SANITIZERS": "ON"
       },
       "description": "Clang build with sanitizers"
     },
@@ -122,8 +121,7 @@
       "inherits": "conf-base-clang",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Coverage",
-        "ENABLE_BENCHMARKS": "OFF",
-        "BUILD_APP": "OFF"
+        "ENABLE_COVERAGE": "ON"
       },
       "description": "Clang build for coverage analysis"
     }

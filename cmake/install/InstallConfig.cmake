@@ -1,47 +1,60 @@
-# Enables standard install paths: lib/, include/, bin/, etc.
-include(GNUInstallDirs)
+include_guard(GLOBAL)
 
-# Provides helpers for writing version/config files
+# === Setup Standard Install Paths ===
+include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 
-# Install compiled library (static or shared)
+# === Install Compiled Library ===
 install(TARGETS math
-  EXPORT ${PROJECT_NAME}Targets               # export target for find_package
-  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} # static libs
-  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} # shared libs
+  EXPORT ${PROJECT_NAME}Targets
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}  # For Windows DLLs
   INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 
-# Install public headers (recursive copy of include/)
-install(
-  DIRECTORY ${CMAKE_SOURCE_DIR}/include/
+# === Install Public Headers ===
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+  FILES_MATCHING PATTERN "*.hpp"
 )
 
-# Install target exports as <project>Targets.cmake
-install(
-  EXPORT ${PROJECT_NAME}Targets
-  NAMESPACE ${PROJECT_NAME}::  # enables find_package to use <project>::<library>
+# === Export Targets for find_package(...) ===
+install(EXPORT ${PROJECT_NAME}Targets
+  FILE ${PROJECT_NAME}Targets.cmake
+  NAMESPACE ${PROJECT_NAME}::
   DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
 )
 
-# Generate a <project>ConfigVersion.cmake file
+# === Generate Version File ===
 write_basic_package_version_file(
   "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
   VERSION ${PROJECT_VERSION}
-  COMPATIBILITY SameMajorVersion # enforces semantic versioning: X.*
+  COMPATIBILITY SameMajorVersion
 )
 
-# Generate <project>Config.cmake from a template
+# === Generate Config File from Template ===
 configure_package_config_file(
-  "${CMAKE_SOURCE_DIR}/cmake/install/Config.cmake.in"
+  "${CMAKE_CURRENT_SOURCE_DIR}/cmake/install/Config.cmake.in"
   "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
   INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
+  PATH_VARS CMAKE_INSTALL_INCLUDEDIR CMAKE_INSTALL_LIBDIR
 )
 
-# Install config files
+# === Install Config Files ===
 install(FILES
   "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
   "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
   DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
 )
+
+
+# === Uninstall ===
+configure_file(
+  "${CMAKE_CURRENT_SOURCE_DIR}/cmake/install/uninstall.cmake.in"
+  "${CMAKE_BINARY_DIR}/uninstall.cmake"
+  IMMEDIATE @ONLY
+)
+
+add_custom_target(uninstall
+  COMMAND ${CMAKE_COMMAND} -P ${CMAKE_BINARY_DIR}/uninstall.cmake)

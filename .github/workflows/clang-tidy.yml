@@ -36,4 +36,4 @@ jobs:
         run: cmake --preset gcc-RelWithDebInfo
 
       - name: Run clang-tidy
-        run: cmake --build build/gcc-RelWithDebInfo/ --target clang-tidy
+        run: cmake --build --preset gcc-RelWithDebInfo --target clang-tidy

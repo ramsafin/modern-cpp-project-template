@@ -23,8 +23,9 @@
 - [Installation](#installation)
   - [Install the Library](#install-the-library)
   - [Use in External Project](#use-in-external-project)
-- [Testing and Coverage](#testing-and-coverage)
+- [Testing and Analysis](#testing-and-analysis)
   - [Unit Testing](#unit-testing)
+  - [Sanitizers](#sanitizers)
   - [Benchmarks](#benchmarks)
   - [Code Coverage](#code-coverage)
 - [Contributing](#contributing)
@@ -109,16 +110,6 @@ cmake --preset gcc-RelWithDebInfo
 cmake --build --preset gcc-RelWithDebInfo
 ```
 
-### Sanitizers
-
-The `Sanitize` build type enables runtime checks for memory errors (AddressSanitizer, UndefinedBehaviorSanitizer).
-
-```bash
-cmake --preset gcc-Sanitize
-cmake --build --preset gcc-Sanitize
-ctest --preset gcc-Sanitize
-```
-
 ## Developer Tooling
 
 ### Code Formatting
@@ -189,7 +180,7 @@ cmake -DCMAKE_PREFIX_PATH=/path/to/install ..
 
 > The install includes CMake config files, version info, and targets for linking.
 
-## Testing and Coverage
+## Testing and Analysis
 
 This project includes unit tests, benchmarks, and support for code coverage analysis.
 
@@ -207,6 +198,18 @@ ctest --preset gcc-RelWithDebInfo
 ```
 
 > Use `Sanitize` builds to detect memory and undefined behavior.
+
+### Sanitizers
+
+The `Sanitize` build type enables runtime checks for memory errors (AddressSanitizer, UndefinedBehaviorSanitizer).
+
+```bash
+cmake --preset gcc-Sanitize
+cmake --build --preset gcc-Sanitize
+ctest --preset gcc-Sanitize
+```
+
+> Enabled by setting `ENABLE_SANITIZERS=ON` (automatically handled via `Sanitizer` preset).
 
 ### Benchmarks
 

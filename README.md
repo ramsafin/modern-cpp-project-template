@@ -32,18 +32,18 @@
 
 ## Features
 
-- **Modern C++20+**: Fully enabled C++20 with support for upgrading to C++23
-- **CMake Presets**: Unified and reproducible builds via `CMakePresets.json`
-- **Testing**: Integrated with GoogleTest using `gtest_discover_tests()`
-- **Benchmarking**: Optional benchmarks with Google Benchmark
+- **Modern C++20+**: fully enabled C++20 with support for upgrading to C++23
+- **CMake Presets**: unified and reproducible builds via `CMakePresets.json`
+- **Testing**: integrated with GoogleTest using `gtest_discover_tests()`
+- **Benchmarking**: optional benchmarks with Google Benchmark
 - **Sanitizers & Coverage**:
   - Address/UB sanitizers for runtime checks
   - `lcov` + `genhtml` support for coverage analysis
 - **Developer Tooling**:
   - `clang-format`, `clang-tidy`, `cppcheck`
   - Configurable via pre-commit hook and CI
-- **Doxygen Docs**: Auto-generated API docs with optional target
-- **Installable Library**: Provides `find_package(...)` integration
+- **Doxygen Docs**: auto-generated API docs with optional target
+- **Installable Library**: provides `find_package(...)` integration
 - **CI-Ready**: GitHub Actions for builds, linting, testing, and formatting
 
 ## Getting Started
@@ -71,30 +71,30 @@ modern-cpp-project-template/
 ### Prerequisites
 
 Before building the project, make sure the following tools are installed on your system:
-| Tool                               | Required   | Notes                                                    |
-| :--------------------------------- | :--------  |:-------------------------------------------------------- |
-| CMake                              | _Yes_      | Version ≥ 3.23 (required for presets)                    |
-| C++ Compiler                       | _Yes_      | GCC (≥ 10) or Clang (≥ 12) recommended                   |
-| Ninja                              | _Optional_ | Used as the default build system (set via CMake presets) |
-| Doxygen                            | _Optional_ | For generating documentation (only if `BUILD_DOCS=ON`)   |
-| lcov / gentml                      | _Optional_ | For code coverage reports (`Coverage` build type)        |
-| cppcheck, clang-format, clang-tidy | _Optional_ | For static analysis and formatting checks                |
+| Tool                               | Required   | Notes                                                  |
+| :--------------------------------- | :--------  |:------------------------------------------------------ |
+| CMake                              | ✅ | Version ≥ 3.23 (required for presets)                         |
+| C++ Compiler                       | ✅ | GCC (≥ 10) or Clang (≥ 12) recommended                        |
+| Ninja                              | Optional | Used as the default build system (set via CMake presets) |
+| Doxygen                            | Optional | For generating documentation (only if `BUILD_DOCS=ON`)   |
+| lcov / genhtml                     | Optional | For code coverage reports (`Coverage` build type)        |
+| cppcheck, clang-format, clang-tidy | Optional | For static analysis and formatting checks                |
 
 > The project gracefully skips unavailable tools and emits a warning if optional tools aren't found.
 
 ### Build Presets
 
-This project uses [**CMake Presets**](https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html) to simplify and standardize configuration and build workflows. Each preset is tailored to a specific purpose.
+This project uses [**CMake Presets**](https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html) to simplify configuration.
 
 | Build Type          | Purpose                                                |
 | :------------------ |:------------------------------------------------------ |
 | `Debug`             | Debugging with no optimizations                        |
 | `Release`           | Optimized builds without debug symbols                 |
-| `RelWithDebInfo`    | Optimized build with debug symbols (recommended)       |
-| `Sanitize`          | Builds with runtime checks enabled (ASan, UBSan, etc.) |
+| `RelWithDebInfo`    | Optimized build with debug symbols (**recommended**)   |
+| `Sanitize`          | Builds with runtime checks enabled                     |
 | `Coverage`          | Builds instrumented for coverage reporting             |
 
-Run to list all presets:
+List available presets:
 ```bash
 cmake --list-presets
 ```
@@ -120,8 +120,6 @@ ctest --preset gcc-Sanitize
 ```
 
 ## Developer Tooling
-
-This project includes several tools to ensure code quality and maintainability. All tools are integrated as CMake targets and run independently from the build system.
 
 ### Code Formatting
 
@@ -161,11 +159,9 @@ cmake --preset gcc-RelWithDebInfo -DBUILD_DOCS=ON
 cmake --build --preset gcc-RelWithDebInfo --target docs
 ```
 
-> Output will be generated in `build/<preset>/docs/html/`
+> Output will be generated in `build/gcc-RelWithDebInfo/docs/html/`
 
 ## Installation
-
-This project supports CMake's standard installation flow and can be consumed by other CMake-based projects using `find_package()`.
 
 ### Install the Library
 

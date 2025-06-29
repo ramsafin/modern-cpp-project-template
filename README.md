@@ -82,7 +82,7 @@ sudo apt install build-essential cmake ninja-build clang-format clang-tidy cppch
 
 **Note:** the project gracefully skips unavailable tools and emits a warning if optional tools aren't found.
 
-### Build Presets and Tools
+### Build Presets
 
 This project uses [**CMake Presets**](https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html) to simplify and standardize configuration and build workflows. Each preset is tailored to a specific purpose.
 
@@ -98,6 +98,66 @@ Run to list all presets:
 ```bash
 cmake --list-presets
 ```
+
+### Building the Project
+
+> All commands assume you are using CMake Presets, which are fully configured for this project.
+
+#### Configure and Build
+
+To configure and build using a preset:
+```bash
+cmake --preset gcc-RelWithDebInfo
+cmake --build --preset gcc-RelWithDebInfo
+```
+
+### Run Tests
+
+All tests are built with [GoogleTest](https://github.com/google/googletest). Enable them with the `ENABLE_TESTING` option (**enabled** by default).
+
+```bash
+cmake --preset gcc-RelWithDebInfo
+cmake --build --preset gcc-RelWithDebInfo
+ctest --preset gcc-RelWithDebInfo
+```
+
+### Sanitizers
+
+The `Sanitize` build type enables runtime checks for memory errors (AddressSanitizer, UndefinedBehaviorSanitizer).
+
+```bash
+cmake --preset gcc-Sanitize
+cmake --build --preset gcc-Sanitize
+ctest --preset gcc-Sanitize
+```
+
+### Generate Code Coverage
+
+Use the `Coverage` preset to instrument code and generate a coverage report (requires `lcov` and `genhtml`):
+```bash
+cmake --preset gcc-Coverage
+cmake --build --preset gcc-Coverage
+ctest --preset gcc-Coverage
+cmake --build --preset gcc-Coverage --target coverage
+```
+
+View the report in:
+```bash
+build/gcc-Coverage/coverage-report/index.html
+```
+
+### Install the Library
+
+```bash
+cmake --preset gcc-Release
+cmake --build --preset gcc-Release
+cmake --install build/gcc-Release --prefix install  # or /usr/local
+```
+
+This installs:
+- Compiled static/shared libraries
+- Public headers from `include/`
+- CMake config files for `find_package(...)` consumers
 
 ## Contributing
 

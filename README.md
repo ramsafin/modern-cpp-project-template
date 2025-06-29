@@ -74,13 +74,7 @@ Before building the project, make sure the following tools are installed on your
 | lcov / gentml                      | _Optional_ | For code coverage reports (`Coverage` build type)        |
 | cppcheck, clang-format, clang-tidy | _Optional_ | For static analysis and formatting checks                |
 
-You can install tools on Ubuntu like so:
-```bash
-sudo apt update
-sudo apt install build-essential cmake ninja-build clang-format clang-tidy cppcheck doxygen lcov
-```
-
-**Note:** the project gracefully skips unavailable tools and emits a warning if optional tools aren't found.
+> The project gracefully skips unavailable tools and emits a warning if optional tools aren't found.
 
 ### Build Presets
 
@@ -103,22 +97,10 @@ cmake --list-presets
 
 > All commands assume you are using CMake Presets, which are fully configured for this project.
 
-#### Configure and Build
-
 To configure and build using a preset:
 ```bash
 cmake --preset gcc-RelWithDebInfo
 cmake --build --preset gcc-RelWithDebInfo
-```
-
-### Run Tests
-
-All tests are built with [GoogleTest](https://github.com/google/googletest). Enable them with the `ENABLE_TESTING` option (**enabled** by default).
-
-```bash
-cmake --preset gcc-RelWithDebInfo
-cmake --build --preset gcc-RelWithDebInfo
-ctest --preset gcc-RelWithDebInfo
 ```
 
 ### Sanitizers
@@ -146,18 +128,126 @@ View the report in:
 build/gcc-Coverage/coverage-report/index.html
 ```
 
-### Install the Library
+## Developer Tooling
 
+This project includes several tools to ensure code quality and maintainability. All tools are integrated as CMake targets and run independently from the build system.
+
+### Code Formatting
+
+Format all C++ files using `.clang-format`. 
+
+Run the check:
 ```bash
-cmake --preset gcc-Release
-cmake --build --preset gcc-Release
-cmake --install build/gcc-Release --prefix install  # or /usr/local
+cmake --preset gcc-RelWithDebInfo
+cmake --build --preset gcc-RelWithDebInfo --target clang-format-check
+```
+> Use a pre-commit hook to automatically check formatting before each commit.
+
+### Static Analysis
+
+- Lint source code using [Clang-Tidy](https://clang.llvm.org/extra/clang-tidy).
+- Run deep static analysis using [Cppcheck](https://cppcheck.sourceforge.io/).
+
+Run `clang-tidy` analysis:
+```bash
+cmake --preset gcc-RelWithDebInfo
+cmake --build --preset gcc-RelWithDebInfo --target clang-tidy
+```
+> Configurable via `.clang-tidy`, with selective checks enabled.
+
+Run `cppcheck` analysis:
+```bash
+cmake --preset gcc-RelWithDebInfo
+cmake --build --preset gcc-RelWithDebInfo --target cppcheck
+```
+> Targets only your project files — third-party code is excluded.
+
+### API Documentation
+
+If `BUILD_DOCS=ON`, a `docs` target becomes available to generate HTML API documentation:
+```bash
+cmake --preset gcc-RelWithDebInfo -DBUILD_DOCS=ON
+cmake --build --preset gcc-RelWithDebInfo --target docs
 ```
 
-This installs:
-- Compiled static/shared libraries
-- Public headers from `include/`
-- CMake config files for `find_package(...)` consumers
+> Output will be generated in `build/<preset>/docs/html/`
+
+## Installation
+
+This project supports CMake's standard installation flow and can be consumed by other CMake-based projects using `find_package()`.
+
+### Install the Library
+
+To install the library (headers, compiled `.a`/`.so`, CMake config files):
+```bash
+cmake --preset gcc-RelWithDebInfo
+cmake --build --preset gcc-RelWithDebInfo
+cmake --install build/gcc-RelWithDebInfo --prefix install  # or /usr/local
+```
+- This installs the library to the `install/` directory.
+- You can also install system-wide with `--prefix /usr/local` (requires `sudo`).
+
+### Use in External Project
+
+After installation, consume the library like this in another CMake project:
+```bash
+find_package(modern_cpp_project REQUIRED)
+target_link_libraries(my_app PRIVATE modern_cpp_project::math)
+```
+
+Make sure CMake knows where to find the installed package:
+```bash
+cmake -DCMAKE_PREFIX_PATH=/path/to/install ..
+```
+
+> The install includes CMake config files, version info, and targets for linking.
+
+## Testing and Coverage
+
+This project includes unit tests, benchmarks, and support for code coverage analysis.
+
+### Unit Testing
+
+Unit tests use **GoogleTest** (via `FetchContent`) and are auto-discovered.
+- Tests are enabled by default (`ENABLE_TESTING=ON`)
+- Run with any build type (e.g., `Debug`, `RelWithDebInfo`, `Sanitize`)
+
+Build and run tests:
+```bash
+cmake --preset gcc-RelWithDebInfo
+cmake --build --preset gcc-RelWithDebInfo
+ctest --preset gcc-RelWithDebInfo
+```
+
+> Use `Sanitize` builds to detect memory and undefined behavior.
+
+### Benchmarks
+
+Benchmarks are written using **Google Benchmark** and are **not enabled** by default (`ENABLE_BENCHMARKS=OFF`).
+
+> Benchmarks are skipped in `Sanitize` and `Coverage` builds for performance and accuracy.
+
+Build and run:
+```bash
+cmake --preset gcc-Release -DENABLE_BENCHMARKS=ON
+cmake --build --preset gcc-Release --target benchmarks
+./build/gcc-Release/benchmarks/benchmarks
+```
+
+### Code Coverage
+
+Coverage is powered by `lcov` + `genhtml`, enabled via the special `Coverage` build type.
+
+Generate coverage report:
+```bash
+cmake --preset gcc-Coverage
+cmake --build --preset gcc-Coverage
+ctest --preset gcc-Coverage
+cmake --build --preset gcc-Coverage --target coverage
+```
+
+> Coverage report can be found in `build/gcc-Coverage/coverage-report/index.html`
+> Coverage excludes third-party and application/benchmark targets. Only `src/` and `tests/` are measured.
 
 ## Contributing
 
@@ -168,6 +258,6 @@ Pull requests are welcome. Please ensure:
 
 ## License
 
-This project is licensed under the [Apache License 2.0](LICENSE).
+This project is licensed under the **Apache License 2.0**.
 
 You are free to use, modify, distribute, and include this code in commercial or open-source projects.

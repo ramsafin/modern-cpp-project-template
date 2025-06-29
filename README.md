@@ -15,7 +15,6 @@
   - [Prerequisites](#prerequisites)
   - [Build Presets](#build-presets)
   - [Building the Project](#building-the-project)
-  - [Sanitizers](#sanitizers)
 - [Developer Tooling](#developer-tooling)
   - [Code Formatting](#code-formatting)
   - [Static Analysis](#static-analysis)

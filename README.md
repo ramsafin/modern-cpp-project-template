@@ -113,21 +113,6 @@ cmake --build --preset gcc-Sanitize
 ctest --preset gcc-Sanitize
 ```
 
-### Generate Code Coverage
-
-Use the `Coverage` preset to instrument code and generate a coverage report (requires `lcov` and `genhtml`):
-```bash
-cmake --preset gcc-Coverage
-cmake --build --preset gcc-Coverage
-ctest --preset gcc-Coverage
-cmake --build --preset gcc-Coverage --target coverage
-```
-
-View the report in:
-```bash
-build/gcc-Coverage/coverage-report/index.html
-```
-
 ## Developer Tooling
 
 This project includes several tools to ensure code quality and maintainability. All tools are integrated as CMake targets and run independently from the build system.

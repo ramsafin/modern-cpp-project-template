@@ -1,6 +1,6 @@
 # Modern C++ Project Template
 
-> ⚡A clean starter for modern C++20+ projects with CMake, tests, benchmarks, CI, coverage, and developer tooling.
+> ⚡A clean starter for modern C++20 projects with CMake Presets, testing, benchmarking, sanitizers, coverage, and developer tooling.
 
 [![CI](https://github.com/ramsafin/modern-cpp-project-template/actions/workflows/ci.yml/badge.svg)](https://github.com/ramsafin/modern-cpp-project-template/actions/workflows/ci.yml)
 [![Clang-Format](https://github.com/ramsafin/modern-cpp-project-template/actions/workflows/clang-format.yml/badge.svg)](https://github.com/ramsafin/modern-cpp-project-template/actions/workflows/clang-format.yml)
@@ -10,197 +10,116 @@
 ## Table of Contents
 
 - [Features](#features)
-- [Getting Started](#getting-started)
-  - [Project Structure](#project-structure)
-  - [Prerequisites](#prerequisites)
-  - [Build Presets](#build-presets)
-  - [Building the Project](#building-the-project)
+- [Project Structure](#project-structure)
+- [Prerequisites](#prerequisites)
+- [Build Presets](#build-presets)
+- [Workflow Presets](#workflow-presets)
+- [Building and Testing](#building-and-testing)
+- [Sanitizers](#sanitizers)
+- [Benchmarking](#benchmarking)
+- [Coverage](#coverage)
 - [Developer Tooling](#developer-tooling)
   - [Code Formatting](#code-formatting)
   - [Static Analysis](#static-analysis)
-  - [API Documentation](#api-documentation)
 - [Installation](#installation)
-  - [Install the Library](#install-the-library)
-  - [Use in External Project](#use-in-external-project)
-- [Testing and Analysis](#testing-and-analysis)
-  - [Unit Testing](#unit-testing)
-  - [Sanitizers](#sanitizers)
-  - [Benchmarks](#benchmarks)
-  - [Code Coverage](#code-coverage)
+- [Package](#packaging)
 - [Contributing](#contributing)
 - [License](#license)
+
 
 ## Features
 
 - **Modern C++20+**: fully enabled C++20 with support for upgrading to C++23
-- **CMake Presets**: unified and reproducible builds via `CMakePresets.json`
+- **CMake Presets**: reproducible, platform‑agnostic builds via `CMakePresets.json`
 - **Testing**: integrated with GoogleTest using `gtest_discover_tests()`
 - **Benchmarking**: optional benchmarks with Google Benchmark
-- **Sanitizers & Coverage**:
-  - Address/UB sanitizers for runtime checks
-  - `lcov` + `genhtml` support for coverage analysis
+- **Sanitizers**: ASan and UBSan runtime checks
+- **Coverage**: `gcovr`-powered HTML reports
 - **Developer Tooling**:
-  - `clang-format`, `clang-tidy`, `cppcheck`
-  - Configurable via pre-commit hook and CI
-- **Doxygen Docs**: auto-generated API docs with optional target
-- **Installable Library**: provides `find_package(...)` integration
+  - `clang-format`, `clang-tidy`, `cppcheck` custom targets
+  - Configurable via pre-commit and CI hooks
+- **Installation**: provides `find_package(...)` integration with proper exports
 - **CI-Ready**: GitHub Actions for builds, linting, testing, and formatting
 
-## Getting Started
 
-### Project Structure
+## Project Structure
 
 ```text
 modern-cpp-project-template/
-├── app/                 # (Optional) Main demo application
+├── app/                 # Optional demo application
 ├── benchmarks/          # Google Benchmark performance tests
-├── cmake/               # Custom CMake modules (warnings, sanitizers, etc.)
-│   ├── install/         # Install configuration templates
-├── docs/                # Doxygen configuration and outputs
-├── include/             # Public headers (installed)
-├── src/                 # Core library source files
+├── cmake/               # Custom CMake modules (warnings, sanitizers, tooling)
+├── include/             # Public headers
+├── src/                 # Library source files
 ├── tests/               # Unit tests using GoogleTest
-├── .clang-format        # Code formatting rules
+├── .clang-format        # Formatting rules
 ├── .clang-tidy          # Static analysis configuration
-├── .gitignore
 ├── CMakeLists.txt       # Top-level CMake build configuration
-├── CMakePresets.json    # Recommended build configurations
+├── CMakePresets.json    # Build, test, and workflow presets
 └── README.md
 ```
 
-### Prerequisites
+## Prerequisites
 
 Before building the project, make sure the following tools are installed on your system:
-| Tool                               | Required   | Notes                                                  |
-| :--------------------------------- | :--------  |:------------------------------------------------------ |
-| CMake                              | ✅ | Version ≥ 3.23 (required for presets)                         |
-| C++ Compiler                       | ✅ | GCC (≥ 10) or Clang (≥ 12) recommended                        |
-| Ninja                              | Optional | Used as the default build system (set via CMake presets) |
-| Doxygen                            | Optional | For generating documentation (only if `BUILD_DOCS=ON`)   |
-| lcov / genhtml                     | Optional | For code coverage reports (`Coverage` build type)        |
-| cppcheck, clang-format, clang-tidy | Optional | For static analysis and formatting checks                |
+- **CMake ≥ 3.23** (tested with 3.28+)
+- **C++ Compiler**: GCC ≥ 10 or Clang ≥ 12
+- **Ninja** (optional; recommended), or your generator of choice
+- **gcovr** (for code coverage reports)
+- **clang-format**, **clang-tidy**, **cppcheck** (optional diagnostics)
 
-> The project gracefully skips unavailable tools and emits a warning if optional tools aren't found.
+> Tools not found are skipped with a warning; features gated by CMake option.
 
-### Build Presets
+## Build Presets
 
 This project uses [**CMake Presets**](https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html) to simplify configuration.
 
-| Build Type          | Purpose                                                |
+| **Preset**          | **Notes**                                              |
 | :------------------ |:------------------------------------------------------ |
 | `Debug`             | Debugging with no optimizations                        |
 | `Release`           | Optimized builds without debug symbols                 |
 | `RelWithDebInfo`    | Optimized build with debug symbols (**recommended**)   |
-| `Sanitize`          | Builds with runtime checks enabled                     |
+| `Sanitize`          | Builds with runtime checks enabled (ASan/UBSan)        |
 | `Coverage`          | Builds instrumented for coverage reporting             |
+| `Release-Bench`     | Builds Release + benchmarks                            |
 
 List available presets:
 ```bash
 cmake --list-presets
 ```
 
-### Building the Project
+## Workflow Presets
 
-> All commands assume you are using CMake Presets, which are fully configured for this project.
+| **Preset**          | **Notes**                                           |
+| :------------------ |:--------------------------------------------------- |
+| `check-sanitize`    | `Sanitize` → build → run tests                      |
+| `coverage-report`   | `Coverage` → build → run tests → *(generate report) |
+| `dist`              | `RelWithDebInfo` → build → package via `CPack`      |
 
-To configure and build using a preset:
+List available workflow presets:
+```bash
+cmake --workflow --list-presets
+```
+
+Run workflows with:
+```bash
+cmake --workflow --preset check-sanitize
+```
+
+## Building and Testing
+
+Configure and build:
 ```bash
 cmake --preset gcc-RelWithDebInfo
 cmake --build --preset gcc-RelWithDebInfo
 ```
 
-## Developer Tooling
-
-### Code Formatting
-
-Format all C++ files using `.clang-format`. 
-
-Run the check:
+Run unit tests:
 ```bash
-cmake --preset gcc-RelWithDebInfo
-cmake --build --preset gcc-RelWithDebInfo --target clang-format-check
-```
-> Use a pre-commit hook to automatically check formatting before each commit.
-
-### Static Analysis
-
-- Lint source code using [Clang-Tidy](https://clang.llvm.org/extra/clang-tidy).
-- Run deep static analysis using [Cppcheck](https://cppcheck.sourceforge.io/).
-
-Run `clang-tidy` analysis:
-```bash
-cmake --preset gcc-RelWithDebInfo
-cmake --build --preset gcc-RelWithDebInfo --target clang-tidy
-```
-> Configurable via `.clang-tidy`, with selective checks enabled.
-
-Run `cppcheck` analysis:
-```bash
-cmake --preset gcc-RelWithDebInfo
-cmake --build --preset gcc-RelWithDebInfo --target cppcheck
-```
-> Targets only your project files — third-party code is excluded.
-
-### API Documentation
-
-If `BUILD_DOCS=ON`, a `docs` target becomes available to generate HTML API documentation:
-```bash
-cmake --preset gcc-RelWithDebInfo -DBUILD_DOCS=ON
-cmake --build --preset gcc-RelWithDebInfo --target docs
-```
-
-> Output will be generated in `build/gcc-RelWithDebInfo/docs/html/`
-
-## Installation
-
-### Install the Library
-
-To install the library (headers, compiled `.a`/`.so`, CMake config files):
-```bash
-cmake --preset gcc-RelWithDebInfo
-cmake --build --preset gcc-RelWithDebInfo
-cmake --install build/gcc-RelWithDebInfo --prefix install  # or /usr/local
-```
-- This installs the library to the `install/` directory.
-- You can also install system-wide with `--prefix /usr/local` (requires `sudo`).
-
-### Use in External Project
-
-After installation, consume the library like this in another CMake project:
-```bash
-find_package(modern_cpp_project REQUIRED)
-target_link_libraries(my_app PRIVATE modern_cpp_project::math)
-```
-
-Make sure CMake knows where to find the installed package:
-```bash
-cmake -DCMAKE_PREFIX_PATH=/path/to/install ..
-```
-
-> The install includes CMake config files, version info, and targets for linking.
-
-## Testing and Analysis
-
-This project includes unit tests, benchmarks, and support for code coverage analysis.
-
-### Unit Testing
-
-Unit tests use **GoogleTest** (via `FetchContent`) and are auto-discovered.
-- Tests are enabled by default (`ENABLE_TESTING=ON`)
-- Run with any build type (e.g., `Debug`, `RelWithDebInfo`, `Sanitize`)
-
-Build and run tests:
-```bash
-cmake --preset gcc-RelWithDebInfo
-cmake --build --preset gcc-RelWithDebInfo
 ctest --preset gcc-RelWithDebInfo
 ```
 
-> Use `Sanitize` builds to detect memory and undefined behavior.
-
-### Sanitizers
-
-The `Sanitize` build type enables runtime checks for memory errors (AddressSanitizer, UndefinedBehaviorSanitizer).
+## Sanitizers
 
 ```bash
 cmake --preset gcc-Sanitize
@@ -208,26 +127,22 @@ cmake --build --preset gcc-Sanitize
 ctest --preset gcc-Sanitize
 ```
 
-> Enabled by setting `ENABLE_SANITIZERS=ON` (automatically handled via `Sanitizer` preset).
+or run the workflow:
 
-### Benchmarks
-
-Benchmarks are written using **Google Benchmark** and are **not enabled** by default (`ENABLE_BENCHMARKS=OFF`).
-
-> Benchmarks are skipped in `Sanitize` and `Coverage` builds for performance and accuracy.
-
-Build and run:
 ```bash
-cmake --preset gcc-Release -DENABLE_BENCHMARKS=ON
-cmake --build --preset gcc-Release --target benchmarks
-./build/gcc-Release/benchmarks/benchmarks
+cmake --workflow --preset check-sanitize
 ```
 
-### Code Coverage
+## Benchmarking
 
-Coverage is powered by `lcov` + `genhtml`, enabled via the special `Coverage` build type.
+```bash
+cmake --preset gcc-Release-Bench
+cmake --build --preset gcc-Release-Bench --target benchmarks
+./build/gcc-Release-Bench/benchmarks/benchmarks
+```
 
-Generate coverage report:
+## Coverage
+
 ```bash
 cmake --preset gcc-Coverage
 cmake --build --preset gcc-Coverage
@@ -235,8 +150,90 @@ ctest --preset gcc-Coverage
 cmake --build --preset gcc-Coverage --target coverage
 ```
 
-> Coverage report can be found in `build/gcc-Coverage/coverage-report/index.html`
-> Coverage excludes third-party and application/benchmark targets. Only `src/` and `tests/` are measured.
+or run the workflow:
+```bash
+cmake --workflow --preset coverage-report
+cmake --build --preset gcc-Coverage --target coverage
+```
+
+> Find the report in `build/gcc-Coverage/coverage-report/index.html`
+
+## Developer Tooling
+
+### Code Formatting
+
+Format all C++ files using `.clang-format`.
+
+Check formatting:
+```bash
+cmake --preset gcc-RelWithDebInfo
+cmake --build --preset gcc-RelWithDebInfo --target format-check
+```
+
+Reformat everything:
+```bash
+cmake --build --preset gcc-RelWithDebInfo --target format
+```
+
+> Use a pre-commit hook to automatically check formatting before each commit.
+
+### Static Analysis
+
+Run `clang-tidy` analysis:
+```bash
+cmake --preset gcc-RelWithDebInfo
+cmake --build --preset gcc-RelWithDebInfo --target clang-tidy
+```
+
+> Configurable via `.clang-tidy`, with selective checks enabled.
+
+Run `cppcheck` analysis:
+```bash
+cmake --preset gcc-RelWithDebInfo
+cmake --build --preset gcc-RelWithDebInfo --target cppcheck
+```
+
+## Installation
+
+```bash
+cmake --preset gcc-RelWithDebInfo
+cmake --build --preset gcc-RelWithDebInfo
+cmake --install build/gcc-RelWithDebInfo --prefix install  # or /usr/local
+```
+
+- This installs the library to the `install/` directory.
+- You can also install system-wide with `--prefix /usr/local` (requires `sudo`).
+
+
+After installation, consume the library like this in another CMake project:
+```bash
+find_package(modern_cpp REQUIRED)
+add_executable(my_app ...)
+target_link_libraries(my_app PRIVATE modern_cpp::library)
+```
+
+Make sure CMake knows where to find the installed package:
+```bash
+cmake -DCMAKE_PREFIX_PATH=/path/to/install ..
+```
+
+## Packaging
+
+Once you’ve built your release­‐type binaries (e.g. `RelWithDebInfo`), you can produce `.tar.gz` and `.zip` archives via CPack:
+
+Use package presets:
+```bash
+cmake --preset gcc-Release
+cmake --build --preset gcc-Release
+cpack --preset package-gcc-Release
+```
+
+or workflow preset:
+```bash
+cmake --workflow --preset gcc-Release-dist
+```
+
+> This generates `.tar.gz` and `.zip` archives in `build/gcc-Release`.
 
 ## Contributing
 

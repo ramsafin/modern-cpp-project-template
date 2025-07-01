@@ -6,8 +6,7 @@
 #endif
 #endif
 
-int main(int argc, char** argv)
-{
+int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
 #if defined(__has_feature)
 #if __has_feature(address_sanitizer)

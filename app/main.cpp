@@ -1,14 +1,13 @@
 #include <iostream>
 
-#include "math/arithmetic.hpp"
+#include "modern_cpp/library.hpp"
 
-int main()
-{
-  const int left = 10;
-  const int right = 4;
+int main() {
+  const int LEFT  = 10;
+  const int RIGHT = 4;
 
-  std::cout << "Add: " << math::add(left, right) << '\n';
-  std::cout << "Subtract: " << math::subtract(left, right) << '\n';
+  std::cout << "Add: " << modern_cpp::add(LEFT, RIGHT) << '\n';
+  std::cout << "Subtract: " << modern_cpp::subtract(LEFT, RIGHT) << '\n';
 
   return 0;
 }

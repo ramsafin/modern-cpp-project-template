@@ -1,13 +1,12 @@
-#ifndef MATH_ARITHMETIC_HPP
-#define MATH_ARITHMETIC_HPP
+#ifndef MODERN_CPP_LIBRARY_HPP
+#define MODERN_CPP_LIBRARY_HPP
 
 /**
- * @file arithmetic.hpp
- * @brief Arithmetic operations library (add, subtract).
+ * @file library.hpp
+ * @brief Arithmetic operations library (add, subtract, multiply).
  */
 
-namespace math
-{
+namespace modern_cpp {
 
 /**
  * @brief Adds two integers.
@@ -36,6 +35,15 @@ int subtract(int left, int right);
  */
 int multiply(int left, int right);
 
-}  // namespace math
+/**
+ * @brief Divide two integers.
+ *
+ * @param left First integer.
+ * @param right Second integer.
+ * @return Division of left and right.
+ */
+int divide(int left, int right);
+
+}  // namespace modern_cpp
 
 #endif

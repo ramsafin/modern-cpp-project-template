@@ -32,4 +32,4 @@ jobs:
         run: cmake --preset gcc-RelWithDebInfo
 
       - name: Run clang-format
-        run: cmake --build --preset gcc-RelWithDebInfo --target clang-format-check
+        run: cmake --build --preset gcc-RelWithDebInfo --target format-check

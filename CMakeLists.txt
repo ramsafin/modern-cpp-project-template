@@ -14,40 +14,6 @@ include(Options)
 # === Flags ===
 include(CompilerFlags)
 
-# === Search All Source Files ===
-file(GLOB_RECURSE CORE_SOURCES
-  CONFIGURE_DEPENDS
-  src/*.cpp
-  src/*.hpp
-  include/*.hpp
-)
-
-set(ALL_SOURCE_FILES ${CORE_SOURCES})
-
-if(ENABLE_TESTING)
-  file(GLOB_RECURSE TEST_SOURCES
-    CONFIGURE_DEPENDS
-    tests/*.cpp
-  )
-  list(APPEND ALL_SOURCE_FILES ${TEST_SOURCES})
-endif()
-
-if(ENABLE_BENCHMARKS)
-  file(GLOB_RECURSE BENCH_SOURCES
-    CONFIGURE_DEPENDS
-    benchmarks/*.cpp
-  )
-  list(APPEND ALL_SOURCE_FILES ${BENCH_SOURCES})
-endif()
-
-if(BUILD_APP)
-  file(GLOB_RECURSE APP_SOURCES
-    CONFIGURE_DEPENDS
-    app/*.cpp
-  )
-  list(APPEND ALL_SOURCE_FILES ${APP_SOURCES})
-endif()
-
 # === Helpers ===
 include(Helpers)
 

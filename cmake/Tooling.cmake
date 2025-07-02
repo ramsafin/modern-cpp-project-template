@@ -1,3 +1,37 @@
+# === Search All Source Files ===
+file(GLOB_RECURSE CORE_SOURCES
+  CONFIGURE_DEPENDS
+  ${CMAKE_SOURCE_DIR}/src/*.cpp
+  ${CMAKE_SOURCE_DIR}/src/*.hpp
+  ${CMAKE_SOURCE_DIR}/include/*.hpp
+)
+
+set(ALL_SOURCE_FILES ${CORE_SOURCES})
+
+if(ENABLE_TESTING)
+  file(GLOB_RECURSE TEST_SOURCES
+    CONFIGURE_DEPENDS
+    ${CMAKE_SOURCE_DIR}/tests/*.cpp
+  )
+  list(APPEND ALL_SOURCE_FILES ${TEST_SOURCES})
+endif()
+
+if(ENABLE_BENCHMARKS)
+  file(GLOB_RECURSE BENCH_SOURCES
+    CONFIGURE_DEPENDS
+    ${CMAKE_SOURCE_DIR}/benchmarks/*.cpp
+  )
+  list(APPEND ALL_SOURCE_FILES ${BENCH_SOURCES})
+endif()
+
+if(BUILD_APP)
+  file(GLOB_RECURSE APP_SOURCES
+    CONFIGURE_DEPENDS
+    ${CMAKE_SOURCE_DIR}/app/*.cpp
+  )
+  list(APPEND ALL_SOURCE_FILES ${APP_SOURCES})
+endif()
+
 # clang-format
 if(ENABLE_CLANG_FORMAT)
   find_program(CLANG_FORMAT_EXE clang-format)

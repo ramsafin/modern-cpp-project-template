@@ -1,6 +1,6 @@
 # .clangd
 CompileFlags:
-  Add: [-Wall, -Wextra, -Wpedantic]
+  Add: [-Wall, -Wextra, -Wpedantic, -std=c++23]
 Diagnostics:
   UnusedIncludes: Strict
   Suppress: ["-Wdeprecated-copy"]

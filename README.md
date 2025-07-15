@@ -19,8 +19,6 @@
 - [Benchmarking](#benchmarking)
 - [Coverage](#coverage)
 - [Developer Tooling](#developer-tooling)
-  - [Code Formatting](#code-formatting)
-  - [Static Analysis](#static-analysis)
 - [Installation](#installation)
 - [Package](#packaging)
 - [Contributing](#contributing)

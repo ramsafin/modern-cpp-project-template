@@ -86,7 +86,8 @@
       "inherits": "conf-base-gcc",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Coverage",
-        "ENABLE_COVERAGE": "ON"
+        "ENABLE_COVERAGE": "ON",
+        "BUILD_APP": "OFF"
       },
       "description": "GCC build for coverage analysis"
     },
@@ -138,7 +139,8 @@
       "inherits": "conf-base-clang",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Coverage",
-        "ENABLE_COVERAGE": "ON"
+        "ENABLE_COVERAGE": "ON",
+        "BUILD_APP": "OFF"
       },
       "description": "Clang build for coverage analysis"
     },

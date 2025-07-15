@@ -1,18 +1,24 @@
-# .clang-format — Based on the Google C++ Style Guide
-
 BasedOnStyle: Google
 
-# Indentation & wrapping
+# Tab vs spaces
+UseTab: Never
 IndentWidth: 2
 TabWidth: 2
-UseTab: Never
+
+AccessModifierOffset: -2
+
+# Column limit
 ColumnLimit: 120
 
-# Brace and paren placement
+# Brace placement
 BreakBeforeBraces: Attach
-SpaceBeforeParens: ControlStatements
+AllowShortFunctionsOnASingleLine: Empty
 
-# Pointer alignment
+# Spaces
+SpaceBeforeParens: ControlStatements
+SpacesInAngles: false
+
+# Pointer/reference alignment
 PointerAlignment: Right
 DerivePointerAlignment: false
 
@@ -20,18 +26,17 @@ DerivePointerAlignment: false
 SortIncludes: true
 IncludeBlocks: Regroup
 
-# Alignment tweaks
-AlignConsecutiveDeclarations: true
-AlignConsecutiveAssignments:  true
-
-# Disable column-alignment of trailing comments
+# Alignments
+AlignConsecutiveDeclarations: false
+AlignConsecutiveAssignments:  false
 AlignTrailingComments: false
 
-# Allow short inline functions on one line
-AllowShortFunctionsOnASingleLine: Inline
-
-# Trailing comments
-SpacesBeforeTrailingComments: 2
-
-# Maximum empty lines
+# Empty lines
 MaxEmptyLinesToKeep: 1
+
+# Keep your own short deviations
+AllowShortIfStatementsOnASingleLine: false
+
+BreakConstructorInitializers: AfterColon
+ConstructorInitializerAllOnOneLineOrOnePerLine: false
+ReflowComments: false

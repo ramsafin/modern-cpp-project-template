@@ -2,7 +2,7 @@
   "C_Cpp.autoAddFileAssociations": false,
   // Use CMake presets instead of manual configuration
   "cmake.useCMakePresets": "always",
-  "cmake.configureOnOpen": false,
+  "cmake.configureOnOpen": true,
   "cmake.autoReload": false,
   "cmake.configurePreset": "gcc-RelWithDebInfo",
   "cmake.buildPreset": "gcc-RelWithDebInfo",

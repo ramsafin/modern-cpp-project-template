@@ -1,4 +1,4 @@
-#–– Flags.cmake –– central cache of all compiler‐flag lists
+#–– CompilerFlags.cmake –– central cache of all compiler‐flag lists
 
 # Compiler warnings
 set(PROJECT_WARNING_FLAGS

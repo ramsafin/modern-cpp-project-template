@@ -51,7 +51,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get -qq update
-          sudo apt-get -qq install -y clang lld gcc g++ ccache --no-install-recommends
+          sudo apt-get -qq install -y clang gcc g++ ccache --no-install-recommends
 
       - name: Cache ccache
         uses: actions/cache@v4
@@ -64,8 +64,9 @@ jobs:
       - name: Cache build directory
         uses: actions/cache@v4
         with:
-          path: build/
-          key: ${{ runner.os }}-build-${{ matrix.compiler }}-${{ matrix.build_type }}-${{ github.sha }}
+          path: build/${{ matrix.compiler }}-${{ matrix.build_type }}
+          key: |
+            ${{ runner.os }}-build-${{ matrix.compiler }}-${{ matrix.build_type }}-${{ hashFiles('**/CMakeLists.txt') }}
           restore-keys: |
             ${{ runner.os }}-build-
 
@@ -76,4 +77,4 @@ jobs:
         run: cmake --build --preset ${{ matrix.compiler }}-${{ matrix.build_type }}
 
       - name: Run tests (ctest)
-        run: ctest --preset ${{ matrix.compiler }}-${{ matrix.build_type }}
+        run: ctest --preset ${{ matrix.compiler }}-${{ matrix.build_type }} --fail-fast

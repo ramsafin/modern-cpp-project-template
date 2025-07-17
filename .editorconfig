@@ -1,6 +1,4 @@
-# .editorconfig
-root = true
-
+# Default for all files
 [*]
 indent_style = space
 indent_size = 2
@@ -8,3 +6,20 @@ end_of_line = lf
 charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
+
+# Tab indentation for Makefiles
+[Makefile]
+indent_style = tab
+
+# Four‑space indent for C/C++ source
+[*.{c,cpp,h,hpp}]
+indent_size = 4
+
+# Soft‑wrapped Markdown, trim trailing space only on non‑list lines
+[*.md]
+trim_trailing_whitespace = false
+max_line_length = 120
+
+# Two‑space indent for YAML and JSON
+[*.{yml,yaml,json}]
+indent_size = 2

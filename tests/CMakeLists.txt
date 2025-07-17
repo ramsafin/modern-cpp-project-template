@@ -5,6 +5,7 @@ FetchContent_Declare(
   googletest
   URL https://github.com/google/googletest/archive/refs/tags/v1.17.0.zip
   DOWNLOAD_EXTRACT_TIMESTAMP true
+
 )
 
 # Disable GTest/GMock install targets
@@ -22,8 +23,10 @@ add_executable(unit_tests
 )
 
 target_link_libraries(unit_tests
-  PRIVATE gtest_main ${PROJECT_NAME}::library
+  PRIVATE GTest::gtest_main ${PROJECT_NAME}::library
 )
+
+target_compile_features(unit_tests PRIVATE cxx_std_${CMAKE_CXX_STANDARD})
 
 enable_strict_warnings(unit_tests)
 enable_sanitizers(unit_tests)

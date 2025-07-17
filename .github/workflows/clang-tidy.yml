@@ -1,23 +1,6 @@
 name: clang-tidy
 
-on:
-  push:
-    branches: [ master ]
-    paths:
-      - '**/*.cpp'
-      - '**/*.hpp'
-      - '.clang-tidy'
-      - 'cmake/Tooling.cmake'
-      - '.github/workflows/clang-tidy.yml'
-
-  pull_request:
-    branches: [ master ]
-    paths:
-      - '**/*.cpp'
-      - '**/*.hpp'
-      - '.clang-tidy'
-      - 'cmake/Tooling.cmake'
-      - '.github/workflows/clang-tidy.yml'
+on: [push, pull_request]
 
 jobs:
   lint:
@@ -47,9 +30,10 @@ jobs:
         uses: actions/cache@v4
         with:
           path: build/
-          key: ${{ runner.os }}-build-${{ github.sha }}
+          key: |
+            ${{ runner.os }}-clang-tidy-${{ hashFiles('**/CMakeLists.txt','cmake/**/*.cmake','.clang-tidy') }}
           restore-keys: |
-            ${{ runner.os }}-build-
+            ${{ runner.os }}-clang-tidy-
 
       - name: Configure project
         run: cmake --preset $CMAKE_PRESET_NAME -DENABLE_CLANG_TIDY=ON

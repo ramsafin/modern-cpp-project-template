@@ -2,15 +2,16 @@
 
 # Compiler warnings
 set(PROJECT_WARNING_FLAGS
-  -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion
-  CACHE STRING "Compiler warning flags"
+  -Wall
+  -Wextra
+  -Wpedantic
+  -Wconversion
+  -Wsign-conversion
 )
 
 # Sanitizers
-set(PROJECT_ASAN_FLAGS   "-fsanitize=address"    CACHE STRING "AddressSanitizer flags")
-set(PROJECT_UBSAN_FLAGS  "-fsanitize=undefined"  CACHE STRING "UndefinedBehaviorSanitizer flags")
+set(PROJECT_ASAN_FLAGS -fsanitize=address)
+set(PROJECT_UBSAN_FLAGS -fsanitize=undefined)
 
 # Coverage
-set(PROJECT_COVERAGE_FLAGS "--coverage"
-  CACHE STRING "Coverage instrumentation flags"
-)
+set(PROJECT_COVERAGE_FLAGS --coverage)

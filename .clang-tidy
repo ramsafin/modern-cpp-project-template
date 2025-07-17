@@ -1,14 +1,31 @@
+---
 Checks: >
-  google-*,
   modernize-*,
-  readability-*,
   performance-*,
-  -google-build-using-namespace,
-  -google-readability-function-size,
+  cppcoreguidelines-*,
+  readability-*,
+  misc-*,
+  bugprone-*,
   -modernize-use-trailing-return-type,
-  -readability-implicit-bool-conversion
+  -cppcoreguidelines-pro-type-const-cast
 
-WarningsAsErrors: ''
+# Treat warnings-as-errors for selected groups
+WarningsAsErrors: >
+  modernize-*,
+  performance-*
 
 FormatStyle: file
 UseColor: true
+
+CheckOptions:
+  # modernize-use-nullptr: replace 0/NULL with nullptr
+  - key:   modernize-use-nullptr.NullMacros
+    value: 'NULL'
+
+  # performance-unnecessary-value-param: catch expensive-by-value parameters
+  - key:   performance-unnecessary-value-param.AllowedTypes
+    value: 'std::string;std::vector'
+
+  # bugprone-use-after-move: catch use-after-move mistakes
+  - key:   bugprone-use-after-move.WarnOnMacros
+    value: 1

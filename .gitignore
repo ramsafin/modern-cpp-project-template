@@ -1,5 +1,9 @@
-# === CMake build artifacts ===
+# === Build Artifacts ===
+
+# CMake out-of-source dirs
 build/
+out*/
+cmake-build-*/
 CMakeFiles/
 CMakeCache.txt
 cmake_install.cmake
@@ -8,49 +12,66 @@ compile_commands.json
 install/
 !cmake/install
 
-# === Ninja build ===
+# Ninja
 *.ninja
-.ninja_deps
-.ninja_log
-rules.ninja
+.ninja_*
 
-# === VS Code ===
-.vscode/*.code-workspace
-.vscode/ipch/
-.vscode/cmakesettings.json
+# === IDEs & Editors ===
 
-# === Editor backups ===
+# VS Code
+.vscode/
+# JetBrains
+.idea/
+*.iml
+
+# Editor backups
 *~
 *.swp
 *.bak
 *.tmp
 
-# === Logs and crash reports ===
-*.log
-*.core
+# === OS-specific ===
+.DS_Store
+Thumbs.db
+ehthumbs.db
 
-# === clangd index ===
-.clangd/
-.cache/
-.clangd/index/
-
-# === Sanitizer dumps (optional) ===
+# === Tools & Packages ===
+# Sanitizer dumps
 leak*.txt
 san.*.log
 
-# === Precompiled headers (if used) ===
-*.gch
-*.pch
+# Coverage & profiler
+coverage/
+*.info
+*.gcno
+*.gcda
+profiler.*
 
-# === Conan (optional for later) ===
+# Conan & vcpkg
 conanbuildinfo.*
 .cmake/conan*
+vcpkg_installed/
+vcpkg_buildtrees/
 
-# === CTest / testing output ===
+# === Testing & Logs ===
 Testing/
 test_output/
+*.log
+*.core
 
-# === Docs ===
-docs/*
-!docs/Doxyfile.in
-!docs/mainpage.md
+# === Packaging & Archives ===
+*.zip
+*.tar.gz
+*.tgz
+*.rpm
+
+# === Documentation Builds ===
+docs/_build/
+docs/html/
+docs/latex/
+
+# === Miscellaneous ===
+tmp/
+temp/
+__pycache__/
+*.lock

@@ -6,6 +6,7 @@ on:
     paths:
       - '**/*.cpp'
       - '**/*.hpp'
+      - 'tests/**'
       - 'CMakeLists.txt'
       - 'cmake/Coverage.cmake'
       - '.github/workflows/coverage.yml'
@@ -39,7 +40,8 @@ jobs:
         uses: actions/cache@v4
         with:
           path: $CACHE_DIR
-          key: ${{ runner.os }}-ccache-${{ github.sha }}
+          key: |
+            ${{ runner.os }}-ccache-${{ hashFiles('**/CMakeLists.txt','cmake/Coverage.cmake') }}
           restore-keys: |
             ${{ runner.os }}-ccache-
 
@@ -47,7 +49,8 @@ jobs:
         uses: actions/cache@v4
         with:
           path: build/
-          key: ${{ runner.os }}-build-${{ github.sha }}
+          key: |
+            ${{ runner.os }}-build-${{ hashFiles('**/CMakeLists.txt','cmake/Coverage.cmake') }}
           restore-keys: |
             ${{ runner.os }}-build-
 

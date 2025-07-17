@@ -49,9 +49,10 @@ jobs:
         uses: actions/cache@v4
         with:
           path: build/
-          key: ${{ runner.os }}-build-${{ github.sha }}
+          key: |
+            ${{ runner.os }}-clang-format-${{ hashFiles('**/.clang-format','cmake/Tooling.cmake') }}
           restore-keys: |
-            ${{ runner.os }}-build-
+            ${{ runner.os }}-clang-format-
 
       - name: Configure with CMake Preset
         run: cmake --preset $CMAKE_PRESET_NAME -DENABLE_CLANG_FORMAT=ON

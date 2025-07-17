@@ -25,7 +25,6 @@
 - [Contributing](#contributing)
 - [License](#license)
 
-
 ## Features
 
 - **Modern C++20+**: fully enabled C++20 with support for upgrading to C++23
@@ -40,22 +39,27 @@
 - **Installation**: provides `find_package(...)` integration with proper exports
 - **CI-Ready**: GitHub Actions for builds, linting, testing, and formatting
 
-
 ## Project Structure
 
 ```text
 modern-cpp-project-template/
+├── .github/workflows/   # CI pipelines for GitHub Actions
+├── .vscode/             # VS Code workspace settings
 ├── app/                 # Optional demo application
 ├── benchmarks/          # Google Benchmark performance tests
-├── cmake/               # Custom CMake modules (warnings, sanitizers, tooling)
-├── include/             # Public headers
+├── cmake/               # Custom CMake modules (Options, Flags, Helpers, etc.)
+├── include/             # Public library headers
 ├── src/                 # Library source files
-├── tests/               # Unit tests using GoogleTest
+├── tests/               # Unit tests (GoogleTest)
 ├── .clang-format        # Formatting rules
 ├── .clang-tidy          # Static analysis configuration
-├── CMakeLists.txt       # Top-level CMake build configuration
+├── .clangd              # Clangd language server settings
+├── .editorconfig        # Editor consistency rules
+├── .gitignore           # Git ignore patterns
+├── CMakeLists.txt       # Top-level build configuration
 ├── CMakePresets.json    # Build, test, and workflow presets
-└── README.md
+├── LICENSE              # Apache 2.0 license
+└── README.md            # Project documentation
 ```
 
 ## Prerequisites

@@ -18,9 +18,11 @@ add_executable(benchmarks
 )
 
 target_link_libraries(benchmarks
-  PRIVATE benchmark::benchmark benchmark::benchmark_main
+  PRIVATE benchmark::benchmark_main
           ${PROJECT_NAME}::library
 )
+
+target_compile_features(benchmarks PRIVATE cxx_std_${CMAKE_CXX_STANDARD})
 
 enable_strict_warnings(benchmarks)
 enable_sanitizers(benchmarks)

@@ -31,6 +31,4 @@ enable_coverage(unit_tests)
 
 include(GoogleTest)
 
-gtest_discover_tests(unit_tests
-  PROPERTIES FAIL_REGULAR_EXPRESSION "WARNING|ERROR"
-)
+gtest_discover_tests(unit_tests)

@@ -3,6 +3,7 @@
 > ⚡A clean starter for modern C++20 projects with CMake Presets, testing, benchmarking, sanitizers, coverage, and developer tooling.
 
 [![CI](https://github.com/ramsafin/modern-cpp-project-template/actions/workflows/ci.yml/badge.svg)](https://github.com/ramsafin/modern-cpp-project-template/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/ramsafin/modern-cpp-project-template/graph/badge.svg?token=946M7LEQA2)](https://codecov.io/gh/ramsafin/modern-cpp-project-template)
 [![Clang-Format](https://github.com/ramsafin/modern-cpp-project-template/actions/workflows/clang-format.yml/badge.svg)](https://github.com/ramsafin/modern-cpp-project-template/actions/workflows/clang-format.yml)
 [![Clang-Tidy](https://github.com/ramsafin/modern-cpp-project-template/actions/workflows/clang-tidy.yml/badge.svg)](https://github.com/ramsafin/modern-cpp-project-template/actions/workflows/clang-tidy.yml)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)

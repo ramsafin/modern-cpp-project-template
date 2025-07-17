@@ -12,6 +12,8 @@ target_include_directories(${PROJECT_NAME}_library
     $<INSTALL_INTERFACE:include>
 )
 
+target_link_libraries(${PROJECT_NAME}_library PRIVATE spdlog)
+
 enable_strict_warnings(${PROJECT_NAME}_library)
 enable_sanitizers(${PROJECT_NAME}_library)
 enable_coverage(${PROJECT_NAME}_library)

@@ -20,6 +20,9 @@ include(Helpers)
 # === Coverage ===
 include(Coverage)
 
+# === Logging ===
+include(Logging)
+
 # === Library ===
 add_subdirectory(src)
 

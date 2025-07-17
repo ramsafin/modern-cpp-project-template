@@ -54,15 +54,15 @@ jobs:
           sudo apt-get -qq install -y clang lld gcc g++ ccache --no-install-recommends
 
       - name: Cache ccache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ github.workspace }}/.ccache
-          key: ${{ runner.os }}-ccache-${{ matrix.compiler }}-${{ matrix.build_type }}-${{ hashFiles('CMakeLists.txt') }}
+          key: ${{ runner.os }}-ccache-${{ matrix.compiler }}-${{ matrix.build_type }}
           restore-keys: |
             ${{ runner.os }}-ccache-
 
       - name: Cache build directory
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: build/
           key: ${{ runner.os }}-build-${{ matrix.compiler }}-${{ matrix.build_type }}-${{ github.sha }}

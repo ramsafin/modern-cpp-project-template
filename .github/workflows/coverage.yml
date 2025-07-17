@@ -36,18 +36,18 @@ jobs:
           sudo apt install -y gcc g++ ccache gcovr lcov
 
       - name: Cache ccache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: $CACHE_DIR
-          key: ${{ runner.os }}-ccache-${{ hashFiles('.github/workflows/coverage.yml') }}
+          key: ${{ runner.os }}-ccache-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-ccache-
 
       - name: Cache build directory
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: build/
-          key: ${{ runner.os }}-build--${{ hashFiles('.github/workflows/coverage.yml') }}-${{ github.sha }}
+          key: ${{ runner.os }}-build-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-build-
 

@@ -154,7 +154,7 @@ cmake --workflow --preset coverage-report
 cmake --build --preset gcc-Coverage --target coverage
 ```
 
-> Find the report in `build/gcc-Coverage/coverage-report/index.html`
+> Find the report in `build/gcc-Coverage/coverage.xml`
 
 ## Developer Tooling
 

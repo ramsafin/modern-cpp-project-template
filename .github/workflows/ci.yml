@@ -77,4 +77,4 @@ jobs:
         run: cmake --build --preset ${{ matrix.compiler }}-${{ matrix.build_type }}
 
       - name: Run tests (ctest)
-        run: ctest --preset ${{ matrix.compiler }}-${{ matrix.build_type }} --fail-fast
+        run: ctest --preset ${{ matrix.compiler }}-${{ matrix.build_type }}

@@ -3,7 +3,7 @@
 
 /**
  * @file library.hpp
- * @brief Arithmetic operations library (add, subtract, multiply).
+ * @brief Arithmetic operations library (add, subtract, multiply, divide).
  */
 
 namespace modern_cpp {

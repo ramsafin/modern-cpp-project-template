@@ -11,13 +11,16 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # === Options ===
 include(Options)
 
-# === Flags ===
+# === Compiler Flags ===
 include(CompilerFlags)
 
 # === Helpers ===
 include(Helpers)
 
-# === Core Library ===
+# === Coverage ===
+include(Coverage)
+
+# === Library ===
 add_subdirectory(src)
 
 # === App ===
@@ -38,9 +41,6 @@ endif()
 
 # === Developer Tooling (formatters, linters, etc.) ===
 include(Tooling)
-
-# === Coverage ===
-include(Coverage)
 
 # === Installation & Export ===
 include(install/InstallConfig)

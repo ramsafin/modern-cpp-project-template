@@ -1,4 +1,4 @@
-# === Search All Source Files ===
+# === Search all source files ===
 file(GLOB_RECURSE CORE_SOURCES
   CONFIGURE_DEPENDS
   ${CMAKE_SOURCE_DIR}/src/*.cpp

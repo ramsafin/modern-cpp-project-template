@@ -10,6 +10,17 @@ on:
       - 'CMakeLists.txt'
       - 'CMakePresets.json'
       - '.github/workflows/ci.yml'
+
+  pull_request:
+    branches: [ master ]
+    paths:
+      - '**/*.cpp'
+      - '**/*.hpp'
+      - 'cmake/**'
+      - 'CMakeLists.txt'
+      - 'CMakePresets.json'
+      - '.github/workflows/ci.yml'
+
   workflow_dispatch:
 
 jobs:
@@ -21,35 +32,52 @@ jobs:
         os: [ubuntu-latest]
         compiler: [gcc, clang]
         build_type: [Sanitize, Release]
+    env:
+      CMAKE_C_COMPILER_LAUNCHER: ccache
+      CMAKE_CXX_COMPILER_LAUNCHER: ccache
+      CCACHE_DIR: ${{ github.workspace }}/.ccache
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with: { fetch-depth: 0 }
 
-      - name: Install CMake
+      - name: Cache APT packages
+        uses: actions/cache@v3
+        with:
+          path: /var/cache/apt
+          key: ${{ runner.os }}-apt-ci-${{ hashFiles('.github/workflows/ci.yml') }}
+          restore-keys: |
+            ${{ runner.os }}-apt-ci-
+
+      - name: Install CMake and Ninja
         uses: lukka/get-cmake@latest
+        with:
+          cmakeVersion: ^3.28.0
+          ninjaVersion: ^1.11.0
 
-      - name: Install build tools
-        run: sudo apt update && sudo apt install -y clang lld gcc g++ ccache ninja-build
+      - name: Install dependencies
+        run: |
+          sudo apt-get -qq update
+          sudo apt-get -qq install -y clang lld gcc g++ ccache --no-install-recommends
 
-      - name: Restore ccache
+      - name: Cache ccache
         uses: actions/cache@v3
         with:
           path: ${{ github.workspace }}/.ccache
-          key: ${{ runner.os }}-ccache-${{ matrix.compiler }}-${{ matrix.build_type }}
+          key: ${{ runner.os }}-ccache-${{ matrix.compiler }}-${{ matrix.build_type }}-${{ hashFiles('CMakeLists.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-ccache-
 
-      - name: Restore build directory
+      - name: Cache build directory
         uses: actions/cache@v3
         with:
-          path: build/${{ matrix.compiler }}-${{ matrix.build_type }}
-          key: ${{ runner.os }}-ccache-${{ matrix.compiler }}-${{ matrix.build_type }}
+          path: build/
+          key: ${{ runner.os }}-build-${{ matrix.compiler }}-${{ matrix.build_type }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-build-
 
       - name: Configure with CMake Preset
-        env:
-          CCACHE_DIR: ${{ github.workspace }}/.ccache
-          CMAKE_C_COMPILER_LAUNCHER: ccache
-          CMAKE_CXX_COMPILER_LAUNCHER: ccache
         run: cmake --preset ${{ matrix.compiler }}-${{ matrix.build_type }}
 
       - name: Build (Ninja)
@@ -57,16 +85,3 @@ jobs:
 
       - name: Run tests (ctest)
         run: ctest --preset ${{ matrix.compiler }}-${{ matrix.build_type }}
-
-      # not sure if next steps are required
-      - name: Save ccache
-        uses: actions/cache@v3
-        with:
-          path: ${{ github.workspace }}/.ccache
-          key: ${{ runner.os }}-ccache-${{ matrix.compiler }}-${{ matrix.build_type }}
-
-      - name: Save build directory
-        uses: actions/cache@v3
-        with:
-          path: build/${{ matrix.compiler }}-${{ matrix.build_type }}
-          key: ${{ runner.os }}-ccache-${{ matrix.compiler }}-${{ matrix.build_type }}

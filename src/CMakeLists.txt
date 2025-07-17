@@ -4,7 +4,7 @@ add_library(${PROJECT_NAME}_library STATIC
 
 add_library(${PROJECT_NAME}::library ALIAS ${PROJECT_NAME}_library)
 
-target_compile_features(${PROJECT_NAME}_library PUBLIC cxx_std_20)
+target_compile_features(${PROJECT_NAME}_library PUBLIC cxx_std_${CMAKE_CXX_STANDARD})
 
 target_include_directories(${PROJECT_NAME}_library
   PUBLIC

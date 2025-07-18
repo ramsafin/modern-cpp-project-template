@@ -20,6 +20,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # === Options ===
 include(Options)
 
+# === Cache ===
+include(Cache)
+
 # === Compiler Flags ===
 include(CompilerFlags)
 

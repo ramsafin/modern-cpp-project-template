@@ -1,5 +1,5 @@
 if(ENABLE_COVERAGE)
-  find_program(GCOVR_EXE gcovr REQUIRED)
+  find_program(GCOVR_EXE NAMES gcovr REQUIRED)
   set(COVERAGE_OUTPUT_DIR "${CMAKE_BINARY_DIR}")
 
   add_custom_target(coverage

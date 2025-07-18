@@ -12,6 +12,7 @@
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/${presetName}",
       "cacheVariables": {
+        "ENABLE_CACHE": "OFF",
         "ENABLE_WARNINGS": "ON",
         "ENABLE_STRICT_WARNINGS": "ON",
         "ENABLE_TESTING": "ON",

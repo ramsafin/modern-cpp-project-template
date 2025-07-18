@@ -34,7 +34,7 @@ endif()
 
 # clang-format
 if(ENABLE_CLANG_FORMAT)
-  find_program(CLANG_FORMAT_EXE clang-format)
+  find_program(CLANG_FORMAT_EXE NAMES clang-format)
 
   if(CLANG_FORMAT_EXE)
     message(STATUS "Found clang-format: ${CLANG_TIDY_EXE}")
@@ -60,7 +60,7 @@ endif()
 
 # cppcheck
 if(ENABLE_CPPCHECK)
-  find_program(CPPCHECK_EXE cppcheck)
+  find_program(CPPCHECK_EXE NAMES cppcheck)
 
   if(CPPCHECK_EXE)
     message(STATUS "Found cppcheck: ${CLANG_TIDY_EXE}")
@@ -83,7 +83,7 @@ endif()
 
 # clang-tidy
 if(ENABLE_CLANG_TIDY)
-  find_program(CLANG_TIDY_EXE clang-tidy)
+  find_program(CLANG_TIDY_EXE NAMES clang-tidy)
 
   if (CLANG_TIDY_EXE)
     message(STATUS "Found clang-tidy: ${CLANG_TIDY_EXE}")

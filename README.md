@@ -33,9 +33,7 @@
 - **Benchmarking**: optional benchmarks with Google Benchmark
 - **Sanitizers**: ASan and UBSan runtime checks
 - **Coverage**: `gcovr`-powered HTML reports
-- **Developer Tooling**:
-  - `clang-format`, `clang-tidy`, `cppcheck` custom targets
-  - Configurable via pre-commit and CI hooks
+- **Developer Tooling**: `clang-format`, `clang-tidy`, `cppcheck` custom targets
 - **Installation**: provides `find_package(...)` integration with proper exports
 - **CI-Ready**: GitHub Actions for builds, linting, testing, and formatting
 

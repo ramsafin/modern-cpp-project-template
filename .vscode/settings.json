@@ -2,15 +2,15 @@
   "C_Cpp.autoAddFileAssociations": false,
   // Use CMake presets instead of manual configuration
   "cmake.useCMakePresets": "always",
-  "cmake.configureOnOpen": true,
+  "cmake.configureOnOpen": false,
   "cmake.autoReload": false,
   "cmake.configurePreset": "gcc-RelWithDebInfo",
   "cmake.buildPreset": "gcc-RelWithDebInfo",
   "cmake.testPreset": "gcc-RelWithDebInfo",
-  // Disable Microsoft IntelliSense (we use clangd)
+  // Disable Microsoft IntelliSense
   "C_Cpp.intelliSenseEngine": "disabled",
   "C_Cpp.enabled": false,
-  // clangd
+  // clangd (see CMakePresets.json for details)
   "clangd.arguments": [
     "--compile-commands-dir=${workspaceFolder}/build/gcc-RelWithDebInfo",
     "--header-insertion=never",

@@ -18,8 +18,6 @@ install/
 
 # === IDEs & Editors ===
 
-# VS Code
-.vscode/
 # JetBrains
 .idea/
 *.iml

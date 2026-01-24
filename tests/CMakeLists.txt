@@ -5,7 +5,6 @@ FetchContent_Declare(
   googletest
   URL https://github.com/google/googletest/archive/refs/tags/v1.17.0.zip
   DOWNLOAD_EXTRACT_TIMESTAMP true
-
 )
 
 # Disable GTest/GMock install targets
@@ -33,5 +32,4 @@ enable_sanitizers(unit_tests)
 enable_coverage(unit_tests)
 
 include(GoogleTest)
-
 gtest_discover_tests(unit_tests)

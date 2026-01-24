@@ -1,21 +1,4 @@
 {
-  "C_Cpp.autoAddFileAssociations": false,
-  // Use CMake presets instead of manual configuration
-  "cmake.useCMakePresets": "always",
-  "cmake.configureOnOpen": false,
-  "cmake.autoReload": false,
-  "cmake.configurePreset": "gcc-RelWithDebInfo",
-  "cmake.buildPreset": "gcc-RelWithDebInfo",
-  "cmake.testPreset": "gcc-RelWithDebInfo",
-  // Disable Microsoft IntelliSense
-  "C_Cpp.intelliSenseEngine": "disabled",
-  "C_Cpp.enabled": false,
-  // clangd (see CMakePresets.json for details)
-  "clangd.arguments": [
-    "--compile-commands-dir=${workspaceFolder}/build/gcc-RelWithDebInfo",
-    "--header-insertion=never",
-    "--clang-tidy",
-  ],
   // Formatting / Style
   "editor.formatOnSave": true,
   "editor.detectIndentation": false,
@@ -23,12 +6,24 @@
   "editor.rulers": [
     120
   ],
+  // Use CMake presets instead of manual configuration
+  "cmake.useCMakePresets": "always",
+  "cmake.configureOnOpen": false,
+  "cmake.configureOnEdit": false,
+  "cmake.loggingLevel": "info",
+  // Disable Microsoft's IntelliSense
+  "C_Cpp.intelliSenseEngine": "disabled",
+  "C_Cpp.autoAddFileAssociations": false,
+  // clangd
+  "clangd.arguments": [
+    "--compile-commands-dir=build/${command:cmake.activeConfigurePresetName}",
+    "--header-insertion=never",
+    "--clang-tidy",
+  ],
   "[cpp]": {
-    "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd",
-    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "xaver.clang-format"
   },
   "[c]": {
-    "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd",
-    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "xaver.clang-format"
   }
 }

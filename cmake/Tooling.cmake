@@ -37,7 +37,7 @@ if(ENABLE_CLANG_FORMAT)
   find_program(CLANG_FORMAT_EXE NAMES clang-format)
 
   if(CLANG_FORMAT_EXE)
-    message(STATUS "Found clang-format: ${CLANG_TIDY_EXE}")
+    message(STATUS "Found clang-format: ${CLANG_FORMAT_EXE}")
     add_custom_target(
       format
       COMMAND ${CLANG_FORMAT_EXE}
@@ -63,7 +63,7 @@ if(ENABLE_CPPCHECK)
   find_program(CPPCHECK_EXE NAMES cppcheck)
 
   if(CPPCHECK_EXE)
-    message(STATUS "Found cppcheck: ${CLANG_TIDY_EXE}")
+    message(STATUS "Found cppcheck: ${CPPCHECK_EXE}")
     add_custom_target(
       cppcheck
       COMMAND ${CPPCHECK_EXE}

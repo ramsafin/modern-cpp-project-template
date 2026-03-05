@@ -42,7 +42,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get -qq update
-          sudo apt-get -qq install -y g++ gcc clang-format --no-install-recommends
+          sudo apt-get -qq install -y g++ gcc ninja-build clang-format --no-install-recommends
 
       - name: Cache build artifacts
         id: cache-build
